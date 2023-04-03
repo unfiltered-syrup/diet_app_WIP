@@ -3,13 +3,18 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import AppProps from './interfaces/AppProps';
+
+const appProps: AppProps = {
+  dummy: 'dummy',
+};
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <App isLoggedIn='true'/>
   </React.StrictMode>
 );
 

@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasl';
+var iconName = 'telescope';
+var width = 576;
+var height = 512;
+var aliases = [128301];
+var unicode = 'e03e';
+var svgPathData = 'M356.6 88l96 166.3L529.3 210l-96-166.3L356.6 88zM557 194l16 27.7-27.7 16-76.6 44.2-27.7 16-16-27.7-.5-.8-41.4 22.4c-.2-1.3-.4-2.6-.7-3.9c1.1 5.2 1.6 10.6 1.6 16.1c0 44.2-35.8 80-80 80c-21.1 0-40.4-8.2-54.7-21.6c.4 .4 .8 .7 1.1 1.1l0 0c7.8 7 16.9 12.5 27 16L223.5 512H188.9l60.2-147.8-127 68.7-85.4-148L326.9 100.5l-14-24.2 27.7-16L417.3 16 445 0l16 27.7L557 194zm-214-65.8L79.8 295.4l54.5 94.5 97-52.4c-4.7-10.2-7.3-21.5-7.3-33.4c0-44.2 35.8-80 80-80c28.6 0 53.6 15 67.8 37.5l36.6-19.8L342.9 128.2zM304 352a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm54.3 10.8c-7.9 7.3-17.3 13.1-27.7 16.7l54 132.5h34.6L358.3 362.8zM37.9 344.1l32 56L77.8 414 50 429.8l-7.9-13.9-32-56L2.2 346 30 330.2l7.9 13.9z';
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faTelescope = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

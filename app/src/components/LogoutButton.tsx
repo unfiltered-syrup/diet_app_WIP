@@ -1,14 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, light, thin, duotone, icon } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
 
-interface LogoutButtonProps {
-    onLogout: () => void;
+
+interface LogoutProps {
+    onLogout: (isLoggedIn: string | undefined) => void;
   }
-
-function LogoutButton(props: LogoutButtonProps){
+function LogoutButton({onLogout}: LogoutProps) {
     const navigate = useNavigate();
 
-    const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleLogout = (e: React.MouseEvent<SVGSVGElement>) => {
         e.preventDefault();
         fetch('http://localhost:5000/api/logout', {
             method: 'POST',
@@ -20,13 +22,14 @@ function LogoutButton(props: LogoutButtonProps){
         )
         .then(response => {
             console.log(response)
-            navigate('/');
+            onLogout('false');
+            navigate('/', {state: {isLoggedIn: 'false'}});
         })
         .catch(error => {
             console.log(error)
         });
     };
-    return <button className="bg-sky-700" type="submit" onClick={handleLogout}>Logout</button>
+    return <FontAwesomeIcon onClick={handleLogout} icon={icon({name: 'arrow-right-from-bracket', family: 'sharp', style: 'light'})} size="3x"  color='pink'/>
 };
 
 export default LogoutButton;
