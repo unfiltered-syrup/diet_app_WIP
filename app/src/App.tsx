@@ -64,7 +64,7 @@ function App(props: AppProps) {
   return (
       <BrowserRouter>
         <div className="flex bg-light-pink">
-          <div className={'w-32 h-screen hover:w-128 transition-all duration-300 ease-in-out bg-dark-green grid grid-cols-1'}>
+          <div className={'w-32 sticky top-0 h-screen shadow-2xl hover:w-128 transition-all duration-300 ease-in-out bg-dark-green grid grid-cols-1 min-w-fit'}>
           <ul className={'place-self-center w-full grid grid-cols-1 place-items-center'}>
           <li className={'w-full flex justify-center items-center'}>
             <Link to="/" className='py-6 highlight group w-full relative inline-flex items-center justify-center'>
@@ -146,7 +146,7 @@ function App(props: AppProps) {
           }
           </ul>
         </div>
-        <div className="text-2x1 font-semibold flex  h-screen w-screen">
+        <div className="text-2x1 font-semibold min-w-fit h-screen w-screen">
           
           <Routes>
           <Route path="/">

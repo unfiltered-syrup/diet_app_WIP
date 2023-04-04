@@ -38,7 +38,7 @@ interface RegisterPageProps {
   
     return (
       <>
-    <div className= "text-2x1 font-semibold flex items-center justify-center h-auto w-full">
+    <div className= "text-2x1 font-semibold flex items-center justify-center h-full w-full">
     <div className='flex mx-auto p-10 justify-center border-4 border-solid border-light-green bg-light-green'>
 
     <div className="flex flex-col items-center">
