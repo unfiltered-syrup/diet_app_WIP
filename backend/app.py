@@ -97,7 +97,6 @@ def register():
             session['logged_in'] = True
             session['username'] = name
             session['userdata'] = json.dumps({'username': name, 'password': password, 'email': email})
-            print('strinify passed')
             response = make_response(jsonify({"success": 'True'}))
             response.set_cookie('isLoggedIn', 'True')
             response.set_cookie('userdata', json.dumps({'username': name, 'password': password, 'email': email}))
