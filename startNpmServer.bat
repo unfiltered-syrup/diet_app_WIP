@@ -1,0 +1,3 @@
+cd app\src
+echo Starting npm test server...
+npm start
