@@ -5,6 +5,7 @@ import sqlite3
 import os
 from flask_session import Session
 from dotenv import load_dotenv
+import json
 
 load_dotenv(".flaskenv")
 app = Flask(__name__)
@@ -45,7 +46,8 @@ def get_session():
     print(session.get('username'))
     print(app.config['SECRET_KEY'])
     if 'username' in session:
-        return jsonify({"username": session['username']})
+        return jsonify({"username": session['username'],
+                        ['userdata']: session['userdata']})
     return jsonify({"username": ''})
 
 
@@ -64,11 +66,15 @@ def login():
                 print('Username found')
                 session['logged_in'] = True
                 session['username'] = name
+                cur.execute("SELECT email FROM users WHERE username = ?", (name, ))
+                email = cur.fetchone()[0]
+                session['userdata'] = json.dumps({'username': name, 'password': password, 'email': email})
                 session.modified = True
-                print(session['username'])
+                print(session['username'] + ' is logged in')
                 conn.close()
                 response = make_response(jsonify({"success": 'True'}))
                 response.set_cookie('isLoggedIn', 'True')
+                response.set_cookie('userdata', json.dumps({'username': name, 'password': password, 'email': email}))
                 return response
         except:
             conn.rollback()
@@ -77,7 +83,29 @@ def login():
 
 @app.route("/api/register", methods=['POST'])
 def register():
-    return jsonify({"success": 'True'})
+    if request.method == 'POST':
+        name = request.json['name']
+        password = request.json['password']
+        email = request.json['email']
+        conn = get_db()
+        cur = conn.cursor()
+        print('post triggered')
+        try:
+            cur.execute("INSERT INTO users (username, password, email) VALUES (?, ?, ?)", (name, password, email))
+            conn.commit()
+            conn.close()
+            session['logged_in'] = True
+            session['username'] = name
+            session['userdata'] = json.dumps({'username': name, 'password': password, 'email': email})
+            print('strinify passed')
+            response = make_response(jsonify({"success": 'True'}))
+            response.set_cookie('isLoggedIn', 'True')
+            response.set_cookie('userdata', json.dumps({'username': name, 'password': password, 'email': email}))
+            return response
+        except:
+            conn.rollback()
+        conn.close()
+    return jsonify({"success": 'False'})
 
 @app.route("/api/logout", methods=['POST'])
 def logout():

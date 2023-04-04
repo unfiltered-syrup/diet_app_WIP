@@ -36,11 +36,11 @@ function LoginPage({onLogin}: LoginPageProps){
   }
 
   return (
-    <>
-    <div className="flex m-auto justify-center">
-      <h1 className="block sm:text-lg md:text-xl lg:text-3xl mb-8">Login</h1>
-    </div>
-    <div className="flex place-self-center">
+    <div className= "text-2x1 font-semibold flex items-center justify-center h-full w-full">
+    <div className='flex p-10 mx-auto justify-center border-4 border-solid border-light-green bg-light-green'>
+
+    <div className="flex flex-col items-center">
+    <h1 className="sm:text-lg md:text-xl lg:text-3xl mb-8 ">Login</h1>
       <form className="w-full max-w-sm">
         <div className="flex items-center mb-6">
           <div className="w-1/3">
@@ -80,7 +80,8 @@ function LoginPage({onLogin}: LoginPageProps){
        </div>
     </form>
   </div>
-  </>
+  </div>
+  </div>
   )
 }
 

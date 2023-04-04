@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   mode: 'jit',
   content: [
@@ -17,6 +18,18 @@ module.exports = {
         'serif': ['Merriweather', 'serif'],
         'mono': ['Menlo', 'monospace'],
         'display': ['Oswald', 'sans-serif'],
+        'UI': ['IBM Plex Mono', 'monospace'],
+      },
+      fontWeight: {
+        hairline: '100',
+        extralight: '200',
+        light: '300',
+        normal: '400',
+        medium: '500',
+        semibold: '600',
+        bold: '700',
+        extrabold: '800',
+        black: '900',
       },
       spacing: {
         '128': '32rem',

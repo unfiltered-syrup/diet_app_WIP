@@ -29,7 +29,9 @@ function LogoutButton({onLogout}: LogoutProps) {
             console.log(error)
         });
     };
-    return <FontAwesomeIcon onClick={handleLogout} icon={icon({name: 'arrow-right-from-bracket', family: 'sharp', style: 'light'})} size="3x"  color='pink'/>
+    return <div className="transition-transform group-hover:-translate-x-16">
+    <FontAwesomeIcon onClick={handleLogout} icon={icon({name: 'arrow-right-from-bracket', family: 'sharp', style: 'light'})} size="3x"  color='pink'/>
+    </div>
 };
 
 export default LogoutButton;
