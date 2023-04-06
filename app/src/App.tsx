@@ -17,6 +17,7 @@ import LogoutButton from "./components/LogoutButton";
 import Register from "./components/Register";
 import AppProps from './interfaces/AppProps';
 import UserPage from './components/UserPage';
+import CuisinePreference from './components/CuisinePreference';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, light, thin, duotone, icon } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
 
@@ -146,7 +147,7 @@ function App(props: AppProps) {
           }
           </ul>
         </div>
-        <div className="text-2x1 font-semibold min-w-fit h-screen w-screen">
+        <div className="text-2x1 font-semibold h-screen w-screen">
           
           <Routes>
           <Route path="/">
@@ -156,6 +157,7 @@ function App(props: AppProps) {
               <Route path="*" element={<NoPage />} />
               <Route path="/login" element={<LoginPage onLogin={handleLogin}/>} />
               <Route path="/register" element={<Register onReg={handleLogin}/>} />
+              <Route path="/dietpreference" element={<CuisinePreference/>} />
               <Route path="user" element={<UserPage userData={sendUserData}/>} />
             </Route>
           </Routes>

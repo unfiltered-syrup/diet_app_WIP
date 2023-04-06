@@ -19,13 +19,13 @@ Session(app)
 CORS(app, supports_credentials=True)
 api = Api(app)
 
-def get_db():
-    conn = sqlite3.connect('data/database.db')
+def get_db(dbname):
+    conn = sqlite3.connect('data/'+ dbname +'.db')
     conn.row_factory = sqlite3.Row
     return conn
 
 def create_user_db(username):
-    conn = sqlite3.connect('data/'+username+'.db')
+    conn = get_db(username)
     cur = conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS cuisinePreference (id INTEGER PRIMARY KEY, cuisineType TEXT)")
     conn.commit()
@@ -128,12 +128,13 @@ def logout():
 
 @app.route("/api/cuisinelist")
 def get_cuisine_list():
-    conn = get_db()
+    conn = get_db('cuisine')
     cur = conn.cursor()
-    cur.execute("SELECT * FROM cuisines")
+    cur.execute("SELECT cuisineType FROM cuisines")
     cuisines = cur.fetchall()
     conn.close()
-    return jsonify(cuisines)
+    data = [dict(row) for row in cuisines]
+    return [item['cuisineType'] for item in data]
 
 if __name__ == '__main__':
     app.run(debug=True)
