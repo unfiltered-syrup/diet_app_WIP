@@ -42,7 +42,7 @@ interface RegisterPageProps {
     <div className='flex mx-auto p-10 justify-center border-4 border-solid border-light-green bg-light-green'>
 
     <div className="flex flex-col items-center">
-    <h1 className="sm:text-lg md:text-xl lg:text-3xl mb-8 ">Register</h1>
+    <h1 className="sm:text-lg md:text-xl lg:text-3xl mb-8 ">Let's get started👋 </h1>
         <form className="w-full max-w-sm">
           <div className="flex items-center mb-6">
             <div className="w-1/3">
@@ -91,7 +91,7 @@ interface RegisterPageProps {
           <div className="md:flex md:items-center">
           <div className="flex m-auto justify-center">
               <button onClick={handleSubmit} className="shadow bg-dark-green hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-              Sign In
+              Create Account
               </button>
             </div>
          </div>

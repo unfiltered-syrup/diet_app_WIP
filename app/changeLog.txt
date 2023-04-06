@@ -1,9 +1,0 @@
-4/1/2023
--- Switched from js to typescript
--- added tailwind support
--- added email for user database
-
-4/3/2023
--- Dynamic UI overhaul for homepage
--- Added cookie to hold user info in json strings
--- Added register page 

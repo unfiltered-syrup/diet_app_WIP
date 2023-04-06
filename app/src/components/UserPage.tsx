@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { BrowserRouter, Routes ,Route, Link, useLocation } from 'react-router-dom';
-
+import CuisineButton from './UIButtons/CuisineButton';
 interface UserProps {
   userData: any;
 }
@@ -43,6 +43,7 @@ const UserPage = (props: UserProps) => {
           <div className=' font-UI shadow-md text-gray-900 bg-gradient-to-r from-light-white to-light-green hover:bg-gradient-to-l hover:from-mid-green hover:to-light-white focus:ring-4 focus:outline-none focus:ring-light-white dark:focus:ring-light-green hover:shadow-lg rounded-lg px-5 py-2.5 text-center mr-2 mb-2'>
             <Link to='\AppSettings' className='font-UI text-lg'>Change App Settings</Link>
           </div>
+          <CuisineButton cuisineName='Italian'/>
         </div>
       </div>
       

@@ -24,6 +24,13 @@ def get_db():
     conn.row_factory = sqlite3.Row
     return conn
 
+def create_user_db(username):
+    conn = sqlite3.connect('data/'+username+'.db')
+    cur = conn.cursor()
+    cur.execute("CREATE TABLE IF NOT EXISTS cuisinePreference (id INTEGER PRIMARY KEY, cuisineType TEXT)")
+    conn.commit()
+    conn.close()
+
 @app.route("/", defaults={'path':''})
 def serve(path):
     return send_from_directory(app.static_folder, 'index.html')
@@ -100,6 +107,7 @@ def register():
             response = make_response(jsonify({"success": 'True'}))
             response.set_cookie('isLoggedIn', 'True')
             response.set_cookie('userdata', json.dumps({'username': name, 'password': password, 'email': email}))
+            create_user_db(name)
             return response
         except:
             conn.rollback()
@@ -117,6 +125,15 @@ def logout():
         response.set_cookie('isLoggedIn', 'False')
         return response
     return ('', 405)
+
+@app.route("/api/cuisinelist")
+def get_cuisine_list():
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM cuisines")
+    cuisines = cur.fetchall()
+    conn.close()
+    return jsonify(cuisines)
 
 if __name__ == '__main__':
     app.run(debug=True)

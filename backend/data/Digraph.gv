@@ -1,0 +1,323 @@
+digraph {
+	"World Cuisines"
+	Asian
+	"World Cuisines" -> Asian
+	"South Asian"
+	Asian -> "South Asian"
+	I
+	"South Asian" -> I
+	n
+	I -> n
+	P
+	"South Asian" -> P
+	a
+	P -> a
+	S
+	"South Asian" -> S
+	r
+	S -> r
+	N
+	"South Asian" -> N
+	e
+	N -> e
+	"East Asian"
+	Asian -> "East Asian"
+	J
+	"East Asian" -> J
+	a
+	J -> a
+	C
+	"East Asian" -> C
+	h
+	C -> h
+	Szechuan
+	"East Asian" -> Szechuan
+	B
+	Szechuan -> B
+	e
+	Szechuan -> e
+	i
+	Szechuan -> i
+	j
+	Szechuan -> j
+	i
+	Szechuan -> i
+	n
+	Szechuan -> n
+	g
+	Szechuan -> g
+	K
+	"East Asian" -> K
+	o
+	K -> o
+	M
+	"East Asian" -> M
+	o
+	M -> o
+	T
+	"East Asian" -> T
+	a
+	T -> a
+	"Southeast Asian"
+	Asian -> "Southeast Asian"
+	T
+	"Southeast Asian" -> T
+	h
+	T -> h
+	V
+	"Southeast Asian" -> V
+	i
+	V -> i
+	I
+	"Southeast Asian" -> I
+	n
+	I -> n
+	M
+	"Southeast Asian" -> M
+	a
+	M -> a
+	F
+	"Southeast Asian" -> F
+	i
+	F -> i
+	B
+	"Southeast Asian" -> B
+	u
+	B -> u
+	S
+	"Southeast Asian" -> S
+	i
+	S -> i
+	American
+	"World Cuisines" -> American
+	"North American"
+	American -> "North American"
+	U
+	"North American" -> U
+	S
+	U -> S
+	C
+	"North American" -> C
+	a
+	C -> a
+	"Latin American"
+	American -> "Latin American"
+	M
+	"Latin American" -> M
+	e
+	M -> e
+	P
+	"Latin American" -> P
+	e
+	P -> e
+	B
+	"Latin American" -> B
+	r
+	B -> r
+	A
+	"Latin American" -> A
+	r
+	A -> r
+	C
+	"Latin American" -> C
+	u
+	C -> u
+	C
+	"Latin American" -> C
+	o
+	C -> o
+	V
+	"Latin American" -> V
+	e
+	V -> e
+	European
+	"World Cuisines" -> European
+	"Western European"
+	European -> "Western European"
+	F
+	"Western European" -> F
+	r
+	F -> r
+	G
+	"Western European" -> G
+	e
+	G -> e
+	A
+	"Western European" -> A
+	u
+	A -> u
+	S
+	"Western European" -> S
+	w
+	S -> w
+	D
+	"Western European" -> D
+	u
+	D -> u
+	B
+	"Western European" -> B
+	e
+	B -> e
+	I
+	"Western European" -> I
+	r
+	I -> r
+	B
+	"Western European" -> B
+	r
+	B -> r
+	"Eastern European"
+	European -> "Eastern European"
+	P
+	"Eastern European" -> P
+	o
+	P -> o
+	C
+	"Eastern European" -> C
+	z
+	C -> z
+	H
+	"Eastern European" -> H
+	u
+	H -> u
+	R
+	"Eastern European" -> R
+	o
+	R -> o
+	B
+	"Eastern European" -> B
+	u
+	B -> u
+	R
+	"Eastern European" -> R
+	u
+	R -> u
+	U
+	"Eastern European" -> U
+	k
+	U -> k
+	Mediterranean
+	European -> Mediterranean
+	I
+	Mediterranean -> I
+	t
+	I -> t
+	S
+	Mediterranean -> S
+	p
+	S -> p
+	P
+	Mediterranean -> P
+	o
+	P -> o
+	G
+	Mediterranean -> G
+	r
+	G -> r
+	T
+	Mediterranean -> T
+	u
+	T -> u
+	L
+	Mediterranean -> L
+	e
+	L -> e
+	I
+	Mediterranean -> I
+	s
+	I -> s
+	African
+	"World Cuisines" -> African
+	"North African"
+	African -> "North African"
+	M
+	"North African" -> M
+	o
+	M -> o
+	T
+	"North African" -> T
+	u
+	T -> u
+	A
+	"North African" -> A
+	l
+	A -> l
+	E
+	"North African" -> E
+	g
+	E -> g
+	"West African"
+	African -> "West African"
+	N
+	"West African" -> N
+	i
+	N -> i
+	G
+	"West African" -> G
+	h
+	G -> h
+	S
+	"West African" -> S
+	e
+	S -> e
+	I
+	"West African" -> I
+	v
+	I -> v
+	"East African"
+	African -> "East African"
+	E
+	"East African" -> E
+	t
+	E -> t
+	E
+	"East African" -> E
+	r
+	E -> r
+	K
+	"East African" -> K
+	e
+	K -> e
+	T
+	"East African" -> T
+	a
+	T -> a
+	"Southern African"
+	African -> "Southern African"
+	S
+	"Southern African" -> S
+	o
+	S -> o
+	Z
+	"Southern African" -> Z
+	i
+	Z -> i
+	M
+	"Southern African" -> M
+	o
+	M -> o
+	Oceanian
+	"World Cuisines" -> Oceanian
+	Australian
+	Oceanian -> Australian
+	"New Zealand"
+	Oceanian -> "New Zealand"
+	"Pacific Islander"
+	Oceanian -> "Pacific Islander"
+	H
+	"Pacific Islander" -> H
+	a
+	H -> a
+	S
+	"Pacific Islander" -> S
+	a
+	S -> a
+	F
+	"Pacific Islander" -> F
+	i
+	F -> i
+	T
+	"Pacific Islander" -> T
+	o
+	T -> o
+}
