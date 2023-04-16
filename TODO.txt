@@ -16,7 +16,7 @@ FLASK:
 
 
 REACT:
--- Add responsive effect on buttons, show description on hover
+-- Add responsive effect on buttons, show description on hover --Solved 4/16/23
 -- Add top bar (?)
 -- Update login and register page to display errors returned from FLASK
 
@@ -24,3 +24,4 @@ REACT:
 DATABASE:
 -- Add python script (init_nutrition_database) to hold food nutrition data. (try to find dataset that already holds nutrition values of different ingrediants by weight and volume)
 -- Add python script (init_recipe_database) to hold recipe data. Assign each recipe with unique id. (foreign key contraint!)
+-- Change cuisine database to tables. 

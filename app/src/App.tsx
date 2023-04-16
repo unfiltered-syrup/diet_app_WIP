@@ -147,7 +147,7 @@ function App(props: AppProps) {
           }
           </ul>
         </div>
-        <div className="text-2x1 font-semibold h-screen w-screen">
+        <div className="text-2x1 font-semibold h-screen w-screen overflow-y-auto">
           
           <Routes>
           <Route path="/">

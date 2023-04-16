@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 interface ButtonListProps {
     buttons: string[];
     }
 
 function ButtonList(props: ButtonListProps) {
+    const [CuisinePref, setCuisinePref] = useState<string[]>([])
+    const storePreference = (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      console.log(e.currentTarget.textContent);
+    };
+
     const buttons = props.buttons.map((buttonText, index) => (
-      <button className=" w-1/12 my-4 mx-2 min-w-fit bg-light-green h-16" key={index}>{buttonText}</button>
+      <button onClick={storePreference} className=" w-1/12 my-4 mx-2 min-w-fit bg-light-green h-16 px-4 rounded-2xl shadow-md" key={index}>{buttonText}</button>
     ));
   
     return (
-      <div className="w-full mx-24 my-5">
-        <h1 className="font-UI text-2xl my-10">Choose Your Cuisine Preference:</h1>
+      <div className="w-full mx-14 my-5">
         {buttons}
       </div>
     );
