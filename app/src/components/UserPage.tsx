@@ -35,13 +35,13 @@ const UserPage = (props: UserProps) => {
           <h1 className='font-UI text-3xl mr-20 my-auto'>Preferences:</h1>
           <div className='grid-cols-1 space-y-4 mt-10'>
             <div className=' font-UI shadow-md text-gray-900 bg-gradient-to-r from-light-white to-light-green hover:bg-gradient-to-l hover:from-mid-green hover:to-light-white focus:ring-4 focus:outline-none focus:ring-light-white dark:focus:ring-light-green hover:shadow-lg rounded-lg px-5 py-2.5 text-center mr-2 mb-2'>
-            <Link to='\AccountSettings' className='font-UI text-lg'>Change Account Information</Link>
+            <Link to='../accountpreference' className='font-UI text-lg'>Change Account Information</Link>
           </div>
           <div className=' font-UI shadow-md text-gray-900 bg-gradient-to-r from-light-white to-light-green hover:bg-gradient-to-l hover:from-mid-green hover:to-light-white focus:ring-4 focus:outline-none focus:ring-light-white dark:focus:ring-light-green hover:shadow-lg rounded-lg px-5 py-2.5 text-center mr-2 mb-2'>
-            <Link to='\DietSettings' className='font-UI text-lg'>Change Diet Preference </Link>
+            <Link to='../dietpreference' className='font-UI text-lg'>Change Diet Preference </Link>
           </div>
           <div className=' font-UI shadow-md text-gray-900 bg-gradient-to-r from-light-white to-light-green hover:bg-gradient-to-l hover:from-mid-green hover:to-light-white focus:ring-4 focus:outline-none focus:ring-light-white dark:focus:ring-light-green hover:shadow-lg rounded-lg px-5 py-2.5 text-center mr-2 mb-2'>
-            <Link to='\AppSettings' className='font-UI text-lg'>Change App Settings</Link>
+            <Link to='../app-preference' className='font-UI text-lg'>Change App Settings</Link>
           </div>
           <CuisineButton cuisineName='Italian'/>
         </div>

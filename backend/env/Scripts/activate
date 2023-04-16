@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\jaden\Desktop\diet_app\backend\env"
+VIRTUAL_ENV="C:\Users\jaden\Desktop\untitled_diet_app\backend\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

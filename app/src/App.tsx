@@ -94,7 +94,7 @@ function App(props: AppProps) {
             </Link>
           </li>
           }
-          {(loggedIn== 'true' || loggedIn=='True' || loggedIn===undefined) && <li className={'w-full flex justify-center items-center'}>
+          {(loggedIn== 'true' || loggedIn=='True') && <li className={'w-full flex justify-center items-center'}>
             <div className='py-6 highlight group w-full relative inline-flex items-center justify-center'>
               <LogoutButton onLogout={handleLogin}/>
               <span className=" font-UI font-hairline text-3xl text-pink-100 opacity-0 md:opacity-0 md:inline-block ml-2 transition-opacity group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-y-1/2">

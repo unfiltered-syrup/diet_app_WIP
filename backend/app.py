@@ -63,7 +63,7 @@ def login():
     if request.method == 'POST':
         name = request.json['name']
         password = request.json['password']
-        conn = get_db()
+        conn = get_db('database')
         cur = conn.cursor()
         print('post triggered')
         try:
@@ -94,7 +94,7 @@ def register():
         name = request.json['name']
         password = request.json['password']
         email = request.json['email']
-        conn = get_db()
+        conn = get_db('database')
         cur = conn.cursor()
         print('post triggered')
         try:
