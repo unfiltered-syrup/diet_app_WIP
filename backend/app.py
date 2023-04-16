@@ -25,9 +25,14 @@ def get_db(dbname):
     return conn
 
 def create_user_db(username):
-    conn = get_db(username)
+    # conn = get_db(username)
+    # cur = conn.cursor()
+    # cur.execute("CREATE TABLE IF NOT EXISTS cuisinePreference (id INTEGER PRIMARY KEY, cuisineType TEXT)")
+    # conn.commit()
+    # conn.close()
+    conn = get_db('Preference')
     cur = conn.cursor()
-    cur.execute("CREATE TABLE IF NOT EXISTS cuisinePreference (id INTEGER PRIMARY KEY, cuisineType TEXT)")
+    cur.execute("""INSERT INTO user_preference (user_name) VALUES (?)""", (username,))
     conn.commit()
     conn.close()
 
