@@ -1,0 +1,4 @@
+# Ignore dependencies and virtual environments
+node_modules/
+env/
+pipenv/

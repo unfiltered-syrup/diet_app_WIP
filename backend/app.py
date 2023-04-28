@@ -7,6 +7,9 @@ from flask_session import Session
 from dotenv import load_dotenv
 import json
 
+# for register
+import re
+
 load_dotenv(".flaskenv")
 app = Flask(__name__)
 app.debug = True
@@ -35,6 +38,21 @@ def create_user_db(username):
     cur.execute("""INSERT INTO user_preference (user_name) VALUES (?)""", (username,))
     conn.commit()
     conn.close()
+
+# for register
+def check_email(email) -> bool:
+    # email format
+    # xxxxxx@xxx.xxx
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+    result = re.fullmatch(regex, email)
+    return result
+
+def check_password(password) -> bool:
+    # contains at least one capital letter
+    for element in password:
+        if element.isupper():
+            return True
+    return False
 
 @app.route("/", defaults={'path':''})
 def serve(path):
@@ -70,7 +88,7 @@ def login():
         password = request.json['password']
         conn = get_db('database')
         cur = conn.cursor()
-        print('post triggered')
+        #print('post triggered')
         try:
             cur.execute("SELECT * FROM users WHERE username = ? AND password = ?", (name, password))
             user = cur.fetchone()
@@ -102,6 +120,18 @@ def register():
         conn = get_db('database')
         cur = conn.cursor()
         print('post triggered')
+        
+        #check validity
+        email_validity = check_email(email)
+        if(not email_validity):
+            response = make_response(jsonify({"success": 'False', "message": "invalid email address"}))
+            return response
+        password_validity = check_password(password)
+        if(not password_validity):
+            response = make_response(jsonify({"success": 'False', "message": "invalid password"}))
+            return response
+
+
         try:
             cur.execute("INSERT INTO users (username, password, email) VALUES (?, ?, ?)", (name, password, email))
             conn.commit()
