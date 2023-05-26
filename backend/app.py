@@ -27,12 +27,8 @@ def get_db(dbname):
     conn.row_factory = sqlite3.Row
     return conn
 
+#create new user preference entry in db when registering
 def create_user_db(username):
-    # conn = get_db(username)
-    # cur = conn.cursor()
-    # cur.execute("CREATE TABLE IF NOT EXISTS cuisinePreference (id INTEGER PRIMARY KEY, cuisineType TEXT)")
-    # conn.commit()
-    # conn.close()
     conn = get_db('Preference')
     cur = conn.cursor()
     cur.execute("""INSERT INTO user_preference (user_name) VALUES (?)""", (username,))
@@ -43,16 +39,25 @@ def create_user_db(username):
 def check_email(email) -> bool:
     # email format
     # xxxxxx@xxx.xxx
-    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+    #regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+    #updated regular expression to contain more characters
+    regex = r'\b[a-zA-Z0-9!?*%@#~{|}$&()\\-`.+,/\"]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
     result = re.fullmatch(regex, email)
     return result
 
 def check_password(password) -> bool:
-    # contains at least one capital letter
-    for element in password:
-        if element.isupper():
-            return True
-    return False
+    numeric = False
+    upper = False
+    lower = False
+    if len(password) >= 10:
+        for element in password:
+            if element.isnumeric():
+                numeric = True
+            elif element.islower():
+                lower = True
+            elif element.isupper():
+                upper = True
+        return upper, lower, numeric
 
 @app.route("/", defaults={'path':''})
 def serve(path):
@@ -118,36 +123,44 @@ def register():
         password = request.json['password']
         email = request.json['email']
         conn = get_db('database')
-        cur = conn.cursor()
-        print('post triggered')
-        
-        #check validity
+        cur = conn.cursor()        
+        #check validity of email
         email_validity = check_email(email)
         if(not email_validity):
             response = make_response(jsonify({"success": 'False', "message": "invalid email address"}))
             return response
         password_validity = check_password(password)
-        if(not password_validity):
-            response = make_response(jsonify({"success": 'False', "message": "invalid password"}))
-            return response
 
+        #check if password contains uppercase, lowercase, and numbers, then returns appropriate message
+        msg = ''
+        if(password_validity!=None):
+            if(not password_validity[0]):
+                msg = "Uppercase letters are required for passwords"
+            elif(not password_validity[1]):
+                msg = "Lowercase letters are required for passwords"
+            elif(not password_validity[2]):
+                msg = 'Numeric values are required for password'
+        else:
+            msg = "Password must be at least 10 digits long"
 
-        try:
-            cur.execute("INSERT INTO users (username, password, email) VALUES (?, ?, ?)", (name, password, email))
-            conn.commit()
+        if(msg == ''):
+            try:
+                cur.execute("INSERT INTO users (username, password, email) VALUES (?, ?, ?)", (name, password, email))
+                conn.commit()
+                conn.close()
+                session['logged_in'] = True
+                session['username'] = name
+                session['userdata'] = json.dumps({'username': name, 'password': password, 'email': email})
+                response = make_response(jsonify({"success": 'True'}))
+                response.set_cookie('isLoggedIn', 'True')
+                response.set_cookie('userdata', json.dumps({'username': name, 'password': password, 'email': email}))
+                create_user_db(name)
+                return response
+            except:
+                conn.rollback()
             conn.close()
-            session['logged_in'] = True
-            session['username'] = name
-            session['userdata'] = json.dumps({'username': name, 'password': password, 'email': email})
-            response = make_response(jsonify({"success": 'True'}))
-            response.set_cookie('isLoggedIn', 'True')
-            response.set_cookie('userdata', json.dumps({'username': name, 'password': password, 'email': email}))
-            create_user_db(name)
-            return response
-        except:
-            conn.rollback()
-        conn.close()
-    return jsonify({"success": 'False'})
+    response = make_response(jsonify({"success": 'False', "message": msg}))
+    return response
 
 @app.route("/api/logout", methods=['POST'])
 def logout():
