@@ -17,3 +17,6 @@
 -- Added UI buttons to choose cuisine preferences
 -- Added preference page 
 -- Made changes to register route. A database named <username>.db is created upon registration
+
+5/25/2023
+-- Minor changes on password and email verification

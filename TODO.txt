@@ -25,3 +25,6 @@ DATABASE:
 -- Add python script (init_nutrition_database) to hold food nutrition data. (try to find dataset that already holds nutrition values of different ingrediants by weight and volume)
 -- Add python script (init_recipe_database) to hold recipe data. Assign each recipe with unique id. (foreign key contraint!)
 -- Change cuisine database to tables. 
+-- Save user preference in a vector of binary values
+-- Calculate the euclidean distance between the user's preference vector to each recipe, sort recipes based on euclidean distance
+-- Send recipe ids to be displayed in front-end
