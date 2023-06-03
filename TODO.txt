@@ -28,3 +28,16 @@ DATABASE:
 -- Save user preference in a vector of binary values
 -- Calculate the euclidean distance between the user's preference vector to each recipe, sort recipes based on euclidean distance
 -- Send recipe ids to be displayed in front-end
+
+
+TODO: 6/3/2023
+Nick
+-- SQL Schema for user_preference
+-- API to fetch user_preference, save as state in userpage component
+-- API to update user_preference, save in database
+-- Get GPT3 API key 
+Phoebe && Jaden
+-- Recommendation logic
+	-- Create synthetic data (fake users and fake recipes)
+	-- User to user logic (fill in missing values)
+	-- User to product logic (rank based on euclidean distance between preference vector and each recipe in the database)
