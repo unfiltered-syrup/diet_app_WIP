@@ -39,5 +39,5 @@ Nick
 Phoebe && Jaden
 -- Recommendation logic
 	-- Create synthetic data (fake users and fake recipes)
-	-- User to user logic (fill in missing values)
-	-- User to product logic (rank based on euclidean distance between preference vector and each recipe in the database)
+	-- User to user logic (fill in missing values) -- completed 6/3/23 -- Jaden && Phoebe
+	-- User to product logic (rank based on euclidean distance between preference vector and each recipe in the database) completed 6/3/23 -- Jaden && Phoebe
