@@ -12,31 +12,7 @@ interface UserProps {
 const UserPage = (props: UserProps) => {
     const [loggedIn, setLoggedIn] = useState<string | null>(localStorage.getItem('loggedIn'));
     const [localUserData, setUserData] = useState<any>(props.userData);
-    const [localUserPreference, setUserPreference] = useState('');
-    console.log(localUserData);
-
-    fetch("http://localhost:5000/api/fetch_user_preference", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({user_name : localUserData.username}),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success === "True") {
-        console.log("fetch_user_preference_success");
-        console.log(localUserPreference);
-        setUserPreference(data.data);
-      } else {
-        console.log("can not find the user preference of the current user");
-      }
-    })
-    .catch(error => {
-      console.log(error)
-    });
-
+    console.log(localUserData)
     return <>
     <div className=' relative p-10 pl-20 w-full h-fit shadow-lg  bg-light-green'>
       <h1 className='font-UI text-5xl'>{localUserData.username}'s Dashboard</h1>
