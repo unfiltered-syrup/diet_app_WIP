@@ -18,6 +18,8 @@ import Register from "./components/Register";
 import AppProps from './interfaces/AppProps';
 import UserPage from './components/UserPage';
 import CuisinePreference from './components/CuisinePreference';
+import Loading from './components/Loading';
+import Chatbox from './components/Chatbox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, light, thin, duotone, icon } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
 
@@ -158,6 +160,8 @@ function App(props: AppProps) {
               <Route path="/login" element={<LoginPage onLogin={handleLogin}/>} />
               <Route path="/register" element={<Register onReg={handleLogin}/>} />
               <Route path="/dietpreference" element={<CuisinePreference/>} />
+              <Route path="/loading" element={<Loading destination="testing"/>} />
+              <Route path="/chatbox" element={<Chatbox/>} />
               <Route path="user" element={<UserPage userData={sendUserData}/>} />
             </Route>
           </Routes>

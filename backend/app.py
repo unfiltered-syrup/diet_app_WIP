@@ -6,6 +6,7 @@ import os
 from flask_session import Session
 from dotenv import load_dotenv
 import json
+from conversation_flow import tree
 
 # for register
 import re
@@ -183,6 +184,57 @@ def get_cuisine_list():
     conn.close()
     data = [dict(row) for row in cuisines]
     return [item['cuisineType'] for item in data]
+
+@app.route("/api/fetch_user_preference", methods = ['POST'])
+def fetch_user_preference():
+    current_username = request.json['user_name']
+    conn = get_db('Preference')
+    cur = conn.cursor()
+    cur.execute("SELECT diet_preference FROM user_preference WHERE user_name = ?", (current_username,))
+    result = cur.fetchone()
+    conn.close()
+    print(current_username)
+    if result:
+        diet_preference = result[0] # diet_preference column is the second column
+        response = make_response(jsonify({"success": 'True', "data": diet_preference}))
+        return response
+    # if not found
+    print("user_name not found")
+    response = make_response(jsonify({"success": 'False', "data": None}))
+    return response
+
+@app.route("/api/update_user_preference", methods = ['POST'])
+def update_user_preference():
+    if request.method == 'POST':
+        # assuming the request contains user_name and diet_preference
+        name = request.json['name']
+        diet_preference = request.json['diet_preference']
+        conn = get_db('Preference')
+        cur = conn.cursor()
+
+        conn.close()
+        try:
+            cur.execute("UPDATE user_preference SET diet_preference = ? WHERE user_name = ?", (diet_preference, name))
+            cur.commit()
+            response = make_response(jsonify({"success": 'True'}))
+            return response
+        except:
+            conn.rollback()
+        conn.close()
+    response = make_response(jsonify({"success": 'False'}))
+    return response
+
+@app.route("/api/fetch_questions")
+def fetch_questions():
+    data = request.get_json()
+    node = tree
+    for answer in data['answers']:
+        node = node.get(answer)
+    if isinstance(node, dict):
+        response = make_response(jsonify({"question": node["question"]}))
+        return response
+    else:
+        return jsonify({"result": node})
 
 if __name__ == '__main__':
     app.run(debug=True)
