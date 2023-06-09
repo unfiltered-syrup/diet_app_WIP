@@ -6,10 +6,13 @@ import os
 from flask_session import Session
 from dotenv import load_dotenv
 import json
-from conversation_flow import tree
+#from conversation_flow import tree
 
 # for register
 import re
+
+# for preference vector
+from backend.data import user_to_user, user_product
 
 load_dotenv(".flaskenv")
 app = Flask(__name__)
@@ -20,7 +23,7 @@ app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_USE_SIGNER'] = True
 app.config.from_object(__name__)
 Session(app)
-CORS(app, supports_credentials=True)
+CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
 api = Api(app)
 
 def get_db(dbname):
@@ -155,7 +158,7 @@ def register():
                 response = make_response(jsonify({"success": 'True'}))
                 response.set_cookie('isLoggedIn', 'True')
                 response.set_cookie('userdata', json.dumps({'username': name, 'password': password, 'email': email}))
-                create_user_db(name)
+                create_user_db(name) # add user into Preference database
                 return response
             except:
                 conn.rollback()
@@ -193,9 +196,9 @@ def fetch_user_preference():
     cur.execute("SELECT diet_preference FROM user_preference WHERE user_name = ?", (current_username,))
     result = cur.fetchone()
     conn.close()
-    print(current_username)
     if result:
-        diet_preference = result[0] # diet_preference column is the second column
+        diet_preference = result[0] # the diet_preference column
+        print(result)
         response = make_response(jsonify({"success": 'True', "data": diet_preference}))
         return response
     # if not found
@@ -207,15 +210,16 @@ def fetch_user_preference():
 def update_user_preference():
     if request.method == 'POST':
         # assuming the request contains user_name and diet_preference
-        name = request.json['name']
+        name = request.json['user_name']
         diet_preference = request.json['diet_preference']
         conn = get_db('Preference')
         cur = conn.cursor()
 
-        conn.close()
+
         try:
             cur.execute("UPDATE user_preference SET diet_preference = ? WHERE user_name = ?", (diet_preference, name))
             cur.commit()
+            conn.close()
             response = make_response(jsonify({"success": 'True'}))
             return response
         except:
@@ -235,6 +239,54 @@ def fetch_questions():
         return response
     else:
         return jsonify({"result": node})
+    
+def convert_string_to_numbers(num_str):
+    num_list = [int(num) for num in num_str.split()]
+    return num_list
+    
+@app.route("/api/generate_recommended_recipes", methods = ['POST'])
+def generate_recommended_recipes():
+    print("here")
+    if request.method == 'POST':
+        #preference_vector = request.json['preference_vector']
+        # testing 
+        preference_vector = user_to_user.n_generate(1,1000)[0]
+        # extract the preference vectors from the database
+        conn = get_db('test_preference')
+        cur = conn.cursor()
+        cur.execute("SELECT preference_vector FROM users LIMIT 1000")
+        rows = cur.fetchall()
+        conn.close()
+
+        str_preference_vectors = [row[0] for row in rows]
+        print(str_preference_vectors[0])
+        preference_vectors = []
+        for spv in str_preference_vectors:
+            preference_vectors.append(convert_string_to_numbers(spv))
+
+        # replace the none values
+        preference_vector = user_to_user.user_to_user(preference_vector, preference_vectors)
+        
+        # extract the recipes from the database
+        conn = get_db('test_recipe')
+        cur = conn.cursor()
+        cur.execute("SELECT id, preference_vector FROM recipes")
+        rows = cur.fetchall()
+        conn.close()
+        # extract the data into a dictionary
+        recipes = {}
+        for row in rows:
+            recipe_id = row[0]
+            recipe_pref_vec = row[1]
+            recipes[recipe_id] = convert_string_to_numbers(recipe_pref_vec)
+
+        # calculate the top 20 recipes
+        recommended_recipes = user_product.user_product(preference_vector, recipes)
+        print(recommended_recipes) # for test
+        response = make_response(jsonify({"success": 'True', "data": recommended_recipes}))
+        return response
+    response = make_response(jsonify({"success": 'False'}))
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
