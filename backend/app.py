@@ -288,5 +288,18 @@ def generate_recommended_recipes():
     response = make_response(jsonify({"success": 'False'}))
     return response
 
+@app.route("/api/get_response", methods=["POST"])
+def get_response():
+    if request.method == 'POST':
+        data = request.get_json()
+        answer = data['answer']
+        #a string that represents the path in the conversation flow tree
+        question_id = data['question_id']
+        #answer provided by the user
+        user_response = request.json['answer'] 
+        bot_response = conversation_flow.make_decision(answer ,question_id)
+        response = make_response(jsonify({"question": bot_response}))
+        return respons
+
 if __name__ == '__main__':
     app.run(debug=True)
