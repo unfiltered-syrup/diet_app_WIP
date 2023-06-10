@@ -6,9 +6,11 @@ import os
 from flask_session import Session
 from dotenv import load_dotenv
 import json
-from conversation_flow import tree
-import conversation_flow
-# for register
+import sys
+import os.path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from . import conversation_flow
+from backend.data import user_to_user, user_product# for register
 import re
 
 load_dotenv(".flaskenv")
@@ -20,7 +22,7 @@ app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_USE_SIGNER'] = True
 app.config.from_object(__name__)
 Session(app)
-CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 api = Api(app)
 
 def get_db(dbname):
@@ -193,9 +195,10 @@ def next_question():
         answer = data['answer']
         #a string that represents the path in the conversation flow tree
         question_id = data['question_id']
+        print("question_id:", question_id)
         #answer provided by the user
         user_response = request.json['answer'] 
-        bot_response = conversation_flow.make_decision(answer ,question_id)
+        bot_response = conversation_flow.make_decision(answer, question_id)
         response = make_response(jsonify({"question": bot_response}))
         return response
     
