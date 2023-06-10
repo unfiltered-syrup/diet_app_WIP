@@ -3,13 +3,16 @@ import math
 import random
 from random import sample
 import matplotlib.pyplot as plt
-#generate batch number and convert to binary
+
+
+# generate batch number and convert to binary
 def generate(batch, dim):
     output = []
     for i in range(batch):
         values = [random.choice([0, 1]) for j in range(dim)]
         output.append(values)
     return output
+
 
 def null_euclidean(arr1, arr2):
     total = 0
@@ -22,16 +25,19 @@ def null_euclidean(arr1, arr2):
         if p1 == None or p2 == None:
             continue
         else:
-            total += (p1-p2)**2
+            total += (p1 - p2) ** 2
             c += 1
-    return math.sqrt((weight/c*total))
+    return math.sqrt((weight / c * total))
+
 
 def dict_euclidean(arr, d):
     # Convert dictionary values to a list
     arr2 = list(d.values())
     # Check that arrays are of the same length
     if len(arr) != len(arr2):
-        raise ValueError("The array and dictionary must have the same number of elements.")
+        raise ValueError(
+            "The array and dictionary must have the same number of elements."
+        )
     distances = {}
     total = 0
     weight = len(arr)
@@ -42,9 +48,8 @@ def dict_euclidean(arr, d):
     return distances
 
 
-
-#merge sort recipes based on euclidean distance
-def merge(left,right):
+# merge sort recipes based on euclidean distance
+def merge(left, right):
     if len(left) == 0:
         return right
     if len(right) == 0:
@@ -52,7 +57,7 @@ def merge(left,right):
     left_index = 0
     right_index = 0
     result = []
-    #sort
+    # sort
     while len(result) < len(left) + len(right):
         if left[left_index][1] <= right[right_index][1]:
             result.append(left[left_index])
@@ -68,24 +73,24 @@ def merge(left,right):
             break
     return result
 
+
 def merge_sort(array):
-    #when there is only one iput
+    # when there is only one iput
     if len(array) < 2:
         return array
-    #find mid point
+    # find mid point
     middle = len(array) // 2
-    return merge(
-        left=merge_sort(array[:middle]),
-        right=merge_sort(array[middle:])
-    )
+    return merge(left=merge_sort(array[:middle]), right=merge_sort(array[middle:]))
+
 
 def get_euclidean_values(user_vec, samples):
     smallest_index = 0
     smallest = sys.maxsize
     values = []
     for x in samples:
-        dist = null_euclidean(user_vec, x) #[0]!!!!
+        dist = null_euclidean(user_vec, x)  # [0]!!!!
         values.append(dist)
+
 
 def merge_sort_dict(d):
     # Convert the dictionary into a list of tuples
@@ -99,10 +104,24 @@ def merge_sort_dict(d):
 
     return sorted_dict
 
+
 def test():
     user_vec = generate(1, 1000)[0]
     recipes = dict(enumerate(generate(1000, 1000), start=0))
-    sorted_dict = merge_sort_dict(dict_euclidean(user_vec,recipes))
+    sorted_dict = merge_sort_dict(dict_euclidean(user_vec, recipes))
 
     return random.sample(list(sorted_dict.keys())[:50], 20)
-print(test())
+
+
+# sort and generate top 20 recommended recipe
+# input_preference_vector: the input preference vector without none values
+# recipe_dictionary: the unsorted recipes extracted from database
+# return : a list of 20 recipe id
+def user_product(input_preference_vector, recipe_dictionary):
+    sorted_dict = merge_sort_dict(
+        dict_euclidean(input_preference_vector, recipe_dictionary)
+    )
+    return random.sample(list(sorted_dict.keys())[:50], 20)
+
+
+#print(test())
