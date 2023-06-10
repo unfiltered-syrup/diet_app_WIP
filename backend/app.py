@@ -299,7 +299,7 @@ def get_response():
         user_response = request.json['answer'] 
         bot_response = conversation_flow.make_decision(answer ,question_id)
         response = make_response(jsonify({"question": bot_response}))
-        return respons
+        return response
 
 if __name__ == '__main__':
     app.run(debug=True)
