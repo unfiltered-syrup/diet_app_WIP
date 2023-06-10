@@ -1,12 +1,17 @@
 # Ignore dependencies and virtual environments
-node_modules/
 env/
 pipenv/
 
-#ignore dependencies in app directory
-app/node_modules/
-
 #ignore flask_session
 flask_session/
-
 backend/flask_session/
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Python-specific files
+*.pyc
+__pycache__/
+
+
