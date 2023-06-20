@@ -18,9 +18,9 @@ const PopupWindow = (props: PopupWindowProps) => {
     const [showPasswordChange, setPasswordChange] = useState(false);
     const [showUsernameChange, setShowUsernameChange] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
+    const checkPassword = async (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log('handleSubmit called');
+        console.log('checkPassword called');
         fetch('http://localhost:5000/login', {
             method: 'POST',
             credentials: 'include',
@@ -216,7 +216,7 @@ const PopupWindow = (props: PopupWindowProps) => {
                                 </div>
                             </div>
                             <div className="flex justify-center">
-                                <button onClick={handleSubmit} className="w-200 text-black bg-pink-100 hover:bg-pink-200 font-UI rounded-lg text-sm px-5 py-2.5 text-center m-5">submit</button>
+                                <button onClick={checkPassword} className="w-200 text-black bg-pink-100 hover:bg-pink-200 font-UI rounded-lg text-sm px-5 py-2.5 text-center m-5">submit</button>
                             </div>
                         </div>
                     </div>
