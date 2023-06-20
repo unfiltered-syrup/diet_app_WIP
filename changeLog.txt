@@ -20,3 +20,24 @@
 
 5/25/2023
 -- Minor changes on password and email verification
+
+5/30/2034 - 6/10/2023
+-- recommendation logic
+  -- Added user-user logic to find the user's nearest "neighbor" using euclidean distance
+  -- Added user-product logic to rank a list of synthetic recipe data
+--Added chatbox interface
+--Added api routes to change usernames and password
+--Added ui to change usernames and password
+
+6/20/2023
+--Major recommendation logic update
+  -- Added use of food data from fdc https://fdc.nal.usda.gov/download-datasets.html
+  -- Added plan to expand on recommendation logic
+    -- Hierchical clustering
+      -- Used to solve the issue where the euclidean distance is calculated with all of the data in the database, 
+      Instead, we only compare the distance within clustered groups
+    -- PCA 
+      -- Used to reduce dimentionality of the data with 400 features
+  -- Data 
+    -- Uses ingredients data from foods.csv from the fdc datasets
+    -- Uses unique description data as features
