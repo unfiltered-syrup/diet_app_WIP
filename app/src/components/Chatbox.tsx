@@ -12,11 +12,7 @@ function Chatbox() {
     const initialRender = useRef(true);
 
     useEffect(() => {
-        if (initialRender.current) {
-            initialRender.current = false;
-        } else {
-            record_response();
-        }
+        record_response();
     }, [clickCount]);
 
     const buttonPressed = async (e: React.MouseEvent<HTMLButtonElement>) => {
