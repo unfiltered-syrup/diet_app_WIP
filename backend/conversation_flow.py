@@ -4,6 +4,12 @@ tree = {
         "question": "Are you on a keto diet?",
         "yes":{
             "question": "What are your favorite meat products?",
+            "yes":{
+                "question": "question4?",
+                "yes":{
+                    "question": "question5?",
+                },
+            },
         },
         "no":{
             "question": "Are you on a carnivore diet?",
@@ -24,12 +30,15 @@ tree = {
 def make_decision(answer, question_id):
     node = tree  # Set node to the whole tree
     if not question_id or question_id == ":":
-        return node["question"]
+        if not answer:
+            return node["question"]
+        else:
+            return node[answer]['question']
     for a in question_id.split(":"):
-        print('value of a:'+ a)
+        #print('value of a:'+ a)
         node = node[a]
     if isinstance(node, str):
-        print(node)
+        #print("node" + node)
         return node
     if answer in node:
         node = node[answer]

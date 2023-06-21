@@ -196,10 +196,12 @@ def next_question():
         #a string that represents the path in the conversation flow tree
         question_id = data['question_id']
         print("question_id:", question_id)
+        print("answer:", answer)
         #answer provided by the user
         user_response = request.json['answer'] 
         bot_response = conversation_flow.make_decision(answer, question_id)
         response = make_response(jsonify({"question": bot_response}))
+        print('bot_response: ' + bot_response)
         return response
     
 @app.route("/api/fetch_user_preference", methods = ['POST'])
@@ -301,6 +303,27 @@ def generate_recommended_recipes():
         return response
     response = make_response(jsonify({"success": 'False'}))
     return response
+
+@app.route("/api/change_password", methods = ['POST'])
+def change_password():
+    if request.method == 'POST':
+        # assuming the request contains user_name and password
+        name = request.json['username']
+        password = request.json['password']
+        conn = get_db('database')
+        cur = conn.cursor()
+        try:
+            cur.execute("UPDATE users SET password = ? WHERE username = ?", (password, name))
+            cur.commit()
+            conn.close()
+            response = make_response(jsonify({"success": 'True'}))
+            return response
+        except:
+            conn.rollback()
+        conn.close()
+    response = make_response(jsonify({"success": 'False'}))
+    return response
+
 
 if __name__ == '__main__':
     app.run(debug=True)

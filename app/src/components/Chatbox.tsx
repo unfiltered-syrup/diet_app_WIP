@@ -9,23 +9,53 @@ function Chatbox() {
     const [questionId, setQuestionId] = useState<string>("");
     const [answer, setAnswer] = useState<string>("");
     const [clickCount, setClickCount] = useState<number>(0);
+    const [clicked, setClicked] = useState<boolean>(false);
     const initialRender = useRef(true);
 
     useEffect(() => {
+        if (initialRender.current) {
+            initialRender.current = false;
+            return;
+        }
+        console.log("clicked_count :" + clickCount);
         record_response();
     }, [clickCount]);
 
+    useEffect(() => {
+        console.log('question_id -> ' + questionId);
+    }, [questionId]);
+
+    useEffect(() => {
+        console.log('question is : ' + question);
+    }, [question]);
+
+    useEffect(() => {
+        console.log('answer : ' + answer);
+    }, [answer]);
+      
+
     const buttonPressed = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        setClickCount(clickCount + 1);
         const buttonContent = (e.target as HTMLElement).innerText;
+        
+        // if (questionId == "") {
+        //     console.log("here")
+        //     setQuestionId(buttonContent);
+        // }
+        // else {
+        //     console.log('there');
+        //     setQuestionId(questionId + ":" + buttonContent);
+        // }
+        // console.log('question_id ->' + questionId);
         setAnswer(buttonContent);
-        console.log('question_id' + questionId);
-        console.log(buttonContent);
-        console.log('button pressed');
+        setClickCount((prevClickCount) => prevClickCount + 1);
+        
+        //console.log(buttonContent);
+        console.log('button pressed : ' + buttonContent);
     };
 
     function record_response() {
+        console.log('aaa' + answer);
         fetch('http://localhost:5000/api/get_response', {
             method: 'post',
             credentials: "include",
@@ -39,15 +69,19 @@ function Chatbox() {
         })
             .then(response => response.json())
             .then(data => {
-                setQuestion(data.question)
-                console.log('question_id added');
-                if (!questionId) {
+                //console.log('data:' + data.question);
+                setQuestion(data.question);
+                //console.log('the question:' + question);
+                //console.log('the answer:' + answer);
+                if (questionId == "") {
+                    console.log('here');
                     setQuestionId(answer);
                 }
                 else {
+                    console.log('there');
                     setQuestionId(questionId + ":" + answer);
                 }
-                console.log('question_id:' + questionId)
+                //console.log('question_id -> ' + questionId)
             })
             .catch((error) => {
                 console.error('Error', error)

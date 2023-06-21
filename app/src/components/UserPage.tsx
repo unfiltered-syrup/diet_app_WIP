@@ -15,9 +15,9 @@ const UserPage = (props: UserProps) => {
     const [isUserModalVisible, setIsUserModalVisible] = useState(false);
     const [isPassModalVisible, setIsPassModalVisible] = useState(false);
 
-    console.log(localUserData)
+    //console.log(localUserData)
     const [localUserPreference, setUserPreference] = useState('');
-    console.log(localUserData);
+    //console.log(localUserData);
 
     const UsernameModal = () => {
         setIsUserModalVisible(!isUserModalVisible);
@@ -39,7 +39,7 @@ const UserPage = (props: UserProps) => {
         .then((data) => {
             if (data.success === "True") {
                 console.log("fetch_user_preference_success");
-                console.log(localUserPreference);
+                //console.log(localUserPreference);
                 setUserPreference(data.data);
             } else {
                 console.log("can not find the user preference of the current user");
