@@ -1,27 +1,27 @@
 tree = {
-    "question": "Do you consume meat products?",
-    "yes":{
+   ## "question": "Do you consume meat products?",
+    "YES":{
         "question": "Are you on a keto diet?",
-        "yes":{
+        "YES":{
             "question": "What are your favorite meat products?",
-            "yes":{
+            "YES":{
                 "question": "question4?",
-                "yes":{
+                "YES":{
                     "question": "question5?",
                 },
             },
         },
-        "no":{
+        "NO":{
             "question": "Are you on a carnivore diet?",
         },
 
     },
-    "no":{
+    "NO":{
         "question": "Are you vegan?",
-        "yes": {
+        "YES": {
             "question": "What are your favorite vegetable products?",
         },
-        "no":{
+        "NO":{
             "question": "What are your favorite vegetable or dairy products?",
         },
     }

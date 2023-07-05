@@ -68,18 +68,18 @@ function App(props: AppProps) {
   console.log('----------------------------------');
   return (
       <BrowserRouter>
-        <div className="flex bg-light-pink">
-          <div className={'w-32 sticky top-0 h-screen shadow-2xl hover:w-128 transition-all duration-300 ease-in-out bg-dark-green grid grid-cols-1 min-w-fit'}>
+        <div className="flex bg-cornsilk">
+          <div className={'w-32 sticky top-0 h-screen shadow-2xl hover:w-128 transition-all duration-300 ease-in-out bg-olivine grid grid-cols-1 min-w-fit'}>
           <ul className={'place-self-center w-full grid grid-cols-1 place-items-center'}>
           <li className={'w-full flex justify-center items-center'}>
             <Link to="/" className='py-6 highlight group w-full relative inline-flex items-center justify-center'>
               <FontAwesomeIcon
                 icon={icon({ name: 'house', family: 'sharp', style: 'light' })}
                 size="3x"
-                color="pink"
+                color="cornsilk"
                 className="transition-transform group-hover:-translate-x-16"
               />
-              <span className=" font-UI font-hairline text-3xl text-pink-100 opacity-0 md:opacity-0 md:inline-block ml-2 transition-opacity group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-y-1/2">
+              <span className=" font-UI font-hairline text-3xl text-cornsilk opacity-0 md:opacity-0 md:inline-block ml-2 transition-opacity group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-y-1/2">
                 Home
               </span>
             </Link>
@@ -89,10 +89,10 @@ function App(props: AppProps) {
               <FontAwesomeIcon
                 icon={icon({ name: 'arrow-right-to-arc', family: 'sharp', style: 'light' })}
                 size="3x"
-                color="pink"
+                color="cornsilk"
                 className="transition-transform group-hover:-translate-x-16"
               />
-              <span className=" font-UI font-hairline text-3xl text-pink-100 opacity-0 md:opacity-0 md:inline-block ml-2 transition-opacity group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-y-1/2">
+              <span className=" font-UI font-hairline text-3xl text-cornsilk opacity-0 md:opacity-0 md:inline-block ml-2 transition-opacity group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-y-1/2">
                 Login
               </span>
             </Link>
@@ -101,7 +101,7 @@ function App(props: AppProps) {
           {(loggedIn== 'true' || loggedIn=='True') && <li className={'w-full flex justify-center items-center'}>
             <div className='py-6 highlight group w-full relative inline-flex items-center justify-center'>
               <LogoutButton onLogout={handleLogin}/>
-              <span className=" font-UI font-hairline text-3xl text-pink-100 opacity-0 md:opacity-0 md:inline-block ml-2 transition-opacity group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-y-1/2">
+              <span className=" font-UI font-hairline text-3xl text-cornsilk opacity-0 md:opacity-0 md:inline-block ml-2 transition-opacity group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-y-1/2">
                 Logout
               </span>
             </div>
@@ -112,10 +112,10 @@ function App(props: AppProps) {
               <FontAwesomeIcon
                 icon={icon({ name: 'chart-mixed', family: 'sharp', style: 'light' })}
                 size="3x"
-                color="pink"
+                color="cornsilk"
                 className="transition-transform group-hover:-translate-x-16"
               />
-              <span className=" font-UI font-hairline text-3xl text-pink-100 opacity-0 md:opacity-0 md:inline-block ml-2 transition-opacity group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-y-1/2">
+              <span className=" font-UI font-hairline text-3xl text-cornsilk opacity-0 md:opacity-0 md:inline-block ml-2 transition-opacity group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-y-1/2">
                 Data
               </span>
             </Link>
@@ -126,10 +126,10 @@ function App(props: AppProps) {
               <FontAwesomeIcon
                 icon={icon({ name: 'user-plus', family: 'sharp', style: 'light' })}
                 size="3x"
-                color="pink"
+                color="cornsilk"
                 className="transition-transform group-hover:-translate-x-16"
               />
-              <span className=" font-UI font-hairline text-3xl text-pink-100 opacity-0 md:opacity-0 md:inline-block ml-2 transition-opacity group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-y-1/2">
+              <span className=" font-UI font-hairline text-3xl text-cornsilk opacity-0 md:opacity-0 md:inline-block ml-2 transition-opacity group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-y-1/2">
                 Register
               </span>
             </Link>
@@ -140,10 +140,10 @@ function App(props: AppProps) {
               <FontAwesomeIcon
                 icon={icon({ name: 'circle-user', family: 'sharp', style: 'light' })}
                 size="3x"
-                color="pink"
+                color="cornsilk"
                 className="transition-transform group-hover:-translate-x-16"
               />
-              <span className=" font-UI font-hairline text-3xl text-pink-100 opacity-0 md:opacity-0 md:inline-block ml-2 transition-opacity group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-y-1/2">
+              <span className=" font-UI font-hairline text-3xl text-cornsilk opacity-0 md:opacity-0 md:inline-block ml-2 transition-opacity group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-y-1/2">
                 User
               </span>
             </Link>

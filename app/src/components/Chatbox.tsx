@@ -12,6 +12,9 @@ function Chatbox() {
     const [clicked, setClicked] = useState<boolean>(false);
     const initialRender = useRef(true);
 
+    // const [questionHistory, setQuestionHistory] = useState<string[]>(['Hello there! :)']);
+    const [chatHistory, setChatHistory] = useState<string[]>(['Hello there!', 'Hello Gorden!', 'Do you consume meat product?']);
+
     useEffect(() => {
         if (initialRender.current) {
             initialRender.current = false;
@@ -32,12 +35,12 @@ function Chatbox() {
     useEffect(() => {
         console.log('answer : ' + answer);
     }, [answer]);
-      
+
 
     const buttonPressed = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const buttonContent = (e.target as HTMLElement).innerText;
-        
+
         // if (questionId == "") {
         //     console.log("here")
         //     setQuestionId(buttonContent);
@@ -49,7 +52,7 @@ function Chatbox() {
         // console.log('question_id ->' + questionId);
         setAnswer(buttonContent);
         setClickCount((prevClickCount) => prevClickCount + 1);
-        
+
         //console.log(buttonContent);
         console.log('button pressed : ' + buttonContent);
     };
@@ -71,6 +74,8 @@ function Chatbox() {
             .then(data => {
                 //console.log('data:' + data.question);
                 setQuestion(data.question);
+                setChatHistory(prevHistory => [...prevHistory, answer]);
+                setChatHistory(prevHistory => [...prevHistory, question]);
                 //console.log('the question:' + question);
                 //console.log('the answer:' + answer);
                 if (questionId == "") {
@@ -86,62 +91,62 @@ function Chatbox() {
             .catch((error) => {
                 console.error('Error', error)
             });
+        //setQuestionHistory(prevHistory => [...prevHistory, question]);
     }
 
 
 
     return (
-        <>
+        <div className="flex flex-col h-screen p-6 bg-beige">
+            <div className="flex flex-col mx-10 h-2/3 mb-4 p-3 bg-cornsilk bg-opacity-50 rounded-lg overflow-auto">
+                {chatHistory.map((entry, index) => {
+                    if (entry.trim() === "") return null;
+                    const isSenderGR = index % 2 === 0;
+                    const senderLabel = isSenderGR ? "GR" : "ME";
 
-
-            {/* <div className="flex flex-col mx-10 h-2/3 mb-4 p-3 bg-slate-50 bg-opacity-50 rounded-lg overflow-auto">
-                
-            <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                Gorden Ramsey
-                </div>
-            <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                {question}
-                </div>
-            <div className="mb-3 p-2 rounded-md bg-green-200 text-right">
-                <p>You: Hello Gorden!</p>
-                </div>
-
-            </div> */}
-            <div className="flex flex-col h-screen p-6 bg-light-pink">
-                <div className="flex flex-col mx-10 h-2/3 mb-4 p-3 bg-slate-50 bg-opacity-50 rounded-lg overflow-auto">
-                    <div className="col-start-6 col-end-13 p-3 rounded-lg">
-                        <div className="flex items-center justify-start">
-                            <div className="flex items-center justify-center h-10 w-10 rounded-full bg-dark-green flex-shrink-0">
-                                <span className="text-rose-50 font-mono">GR</span>
-                            </div>
-                            <div className="relative ml-3 text-sm bg-light-pink py-2 px-4 shadow rounded-xl">
-                                <div className="text-dark-green font-mono">{question}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-start-6 col-end-13 p-3 rounded-lg">
-                        <div className="flex items-center justify-start flex-row-reverse">
-                            <div className="flex items-center justify-center h-10 w-10 rounded-full bg-dark-green flex-shrink-0">
-                                <span className="text-rose-50 font-mono">ME</span>
-                            </div>
-                            <div className="relative mr-3 text-sm bg-light-pink py-2 px-4 shadow rounded-xl">
-                                <div className="text-dark-green font-mono">Hello Gorden!</div>
+                    return (
+                        <div
+                            key={index}
+                            className={`col-start-6 col-end-13 p-3 rounded-lg ${isSenderGR ? "" : "flex-row-reverse"
+                                }`}
+                        >
+                            <div className={`flex items-center justify-start ${isSenderGR ? "" : 'flex-row-reverse'}`}>
+                                <div className={`flex items-center justify-center h-10 w-10 rounded-full ${isSenderGR ? "bg-sand" : "bg-olivine"
+                                    } flex-shrink-0 border-solid border-light-green border-2"`}>
+                                    <span className={`text-cornsilk font-mono`}>
+                                        {senderLabel}
+                                    </span>
+                                </div>
+                                <div className={`relative ml-3 mr-3 text-sm ${isSenderGR ? "bg-papaya-whip" : "bg-beige"
+                                    } py-2 px-4 shadow rounded-xl`}>
+                                    <div className={`text-neutral-600 font-mono`}>
+                                        {entry}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div className="flex items-center justify-center mx-10 h-1/3 p-3 bg-slate-50 bg-opacity-50 rounded-lg">
-                    <button onClick={buttonPressed} 
-                    className="mr-2 py-2 px-4 rounded-md bg-dark-green text-white hover:bg-emerald-800 font-mono">
-                        yes</button>
-                    <button onClick={buttonPressed} 
-                    className="mr-2 py-2 px-4 rounded-md bg-dark-green text-white hover:bg-emerald-800 font-mono">
-                        no</button>
-                </div>
+                    );
+                })}
             </div>
 
-        </>
-    )
+            <div className="flex flex-col items-center justify-center mx-10 h-1/3 p-3 bg-cornsilk bg-opacity-50 rounded-lg">
+                <button
+                    onClick={buttonPressed}
+                    className="w-full h-1/2 rounded-md bg-olivine text-cornsilk hover:bg-moss-green font-mono"
+                >
+                    YES
+                </button>
+                <button
+                    onClick={buttonPressed}
+                    className="w-full h-1/2 rounded-md bg-olivine text-cornsilk hover:bg-moss-green font-mono"
+                >
+                    NO
+                </button>
+            </div>
+        </div>
+    );
+
+
 }
+
 export default Chatbox;

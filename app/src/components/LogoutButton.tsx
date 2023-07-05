@@ -30,7 +30,7 @@ function LogoutButton({onLogout}: LogoutProps) {
         });
     };
     return <div className="transition-transform group-hover:-translate-x-16">
-    <FontAwesomeIcon onClick={handleLogout} icon={icon({name: 'arrow-right-from-bracket', family: 'sharp', style: 'light'})} size="3x"  color='pink'/>
+    <FontAwesomeIcon onClick={handleLogout} icon={icon({name: 'arrow-right-from-bracket', family: 'sharp', style: 'light'})} size="3x"  color='cornsilk'/>
     </div>
 };
 
