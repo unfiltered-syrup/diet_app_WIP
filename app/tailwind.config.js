@@ -13,13 +13,22 @@ module.exports = {
         "light-pink": "rgba(235, 35, 0, 0.08)",
         "light-green": "rgba(3, 176, 0, 0.12)",
         'mid-green': 'rgba(199, 235, 217, 0.78)',
+        'olivine': 'rgba(153,172,93)',
+        'moss-green': 'rgba(119, 135, 69)',
+        'sage': 'rgba(186, 200, 147)',
+        'beige': 'rgba(233,237,201)',
+        'cornsilk': 'rgba(254,250,224)',
+        'papaya-whip': 'rgba(250,237,205)',
+        'buff': 'rgba(212,163,115)',
+        'sand': 'rgba(226,194,161)',
+        'porange': 'rgba(202, 143, 83)'
       },
       fontFamily: {
         'sans': ['Inter', 'sans-serif'],
         'serif': ['Merriweather', 'serif'],
         'mono': ['Menlo', 'monospace'],
         'display': ['Oswald', 'sans-serif'],
-        'UI': ['IBM Plex Mono', 'monospace'],
+        'UI': ['helvetica'],
       },
       fontWeight: {
         hairline: '100',
