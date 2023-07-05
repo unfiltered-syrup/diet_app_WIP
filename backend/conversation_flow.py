@@ -1,5 +1,5 @@
 tree = {
-   ## "question": "Do you consume meat products?",
+   "question": "",
     "YES":{
         "question": "Are you on a keto diet?",
         "YES":{
@@ -13,6 +13,12 @@ tree = {
         },
         "NO":{
             "question": "Are you on a carnivore diet?",
+            "YES": {
+                "question": "question 6?",
+            },
+            "NO": {
+                "question": "question 7?",
+            }
         },
 
     },

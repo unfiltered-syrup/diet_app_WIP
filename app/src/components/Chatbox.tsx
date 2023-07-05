@@ -36,6 +36,10 @@ function Chatbox() {
         console.log('answer : ' + answer);
     }, [answer]);
 
+    useEffect(() => {
+        console.log('chatHistory -> ' + chatHistory);
+    }, [chatHistory]);
+
 
     const buttonPressed = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -58,7 +62,6 @@ function Chatbox() {
     };
 
     function record_response() {
-        console.log('aaa' + answer);
         fetch('http://localhost:5000/api/get_response', {
             method: 'post',
             credentials: "include",
@@ -72,28 +75,23 @@ function Chatbox() {
         })
             .then(response => response.json())
             .then(data => {
-                //console.log('data:' + data.question);
+                // Set the question first
                 setQuestion(data.question);
-                setChatHistory(prevHistory => [...prevHistory, answer]);
-                setChatHistory(prevHistory => [...prevHistory, question]);
-                //console.log('the question:' + question);
-                //console.log('the answer:' + answer);
-                if (questionId == "") {
-                    console.log('here');
+                // Update the chat history
+                // Update the questionId
+                if (questionId === "") {
                     setQuestionId(answer);
-                }
-                else {
-                    console.log('there');
+                    //setChatHistory(prevHistory => [...prevHistory, answer]);
+                } else {
                     setQuestionId(questionId + ":" + answer);
                 }
-                //console.log('question_id -> ' + questionId)
+                setChatHistory(prevHistory => [...prevHistory, answer]);
+                    setChatHistory(prevHistory => [...prevHistory, data.question]);
             })
             .catch((error) => {
                 console.error('Error', error)
             });
-        //setQuestionHistory(prevHistory => [...prevHistory, question]);
     }
-
 
 
     return (
