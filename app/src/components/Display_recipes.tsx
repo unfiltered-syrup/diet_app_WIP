@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import img1 from './images/test1.jpg';
 import img2 from './images/test2.jpg';
 import img3 from './images/test3.jpg';
@@ -15,22 +15,28 @@ import img13 from './images/test13.jpg';
 import img14 from './images/test14.jpg';
 import img15 from './images/test15.jpg';
 
-//sm: 640px
-//md: 768px
-//lg: 1024px
-//xl: 1280px
-//2xl: 1536px
-const Display_recipes = ({toggleBox}: {toggleBox: (recipeName: string) => void}) => {
-  const recipeArray = Array.from({ length: 31 }, (_, index) => `test${index}`);
-  const imgs = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13, img14, img15, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13, img14, img15];
-  const onRecipeClick = (recipeName: String) =>{
-    console.log('key clicked: '+ recipeName );
-  }
+const Display_recipes = ({ toggleBox }: { toggleBox: (recipeName: string) => void }) => {
+  const recipeArray = Array.from({ length: 15 }, (_, index) => `test${index + 1}`);
+  const imgs = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13, img14, img15];
 
-  return  <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 bg-beige p-10">
-    {recipeArray.map((recipe, index) => (
-      <img key={index} src={imgs[index]} style={{ height: '250px', width: '250px' }} onClick={()=>toggleBox(imgs[index])} className='h-40 transition ease-in-out delay-150 hover:scale-105 duration-300 '/>
-    ))}
-</div>
-}
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 bg-cornsilk p-10">
+      {recipeArray.map((recipe, index) => (
+        <div
+          key={index}
+          className="rounded bg-sage overflow-hidden shadow-sm transition duration-300 transform hover:shadow-lg hover:bg-olivine flex justify-center items-center my-5"
+        >
+          <img
+            src={imgs[index]}
+            alt={recipe}
+            style={{ height: '250px', width: '250px', objectFit: 'cover' }}
+            onClick={() => toggleBox(imgs[index])}
+            className="my-5"
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export default Display_recipes;

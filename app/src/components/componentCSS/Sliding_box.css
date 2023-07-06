@@ -4,11 +4,10 @@
     transition: all 0.3s ease-out;
     width: 100vw;
     height: 0vw;
-    background-color: burlywood;
+    background-color: #faedcd;
 }
 
 .backbox.expand {
     height: 50vh;
     width: 100vw;
 }
-
