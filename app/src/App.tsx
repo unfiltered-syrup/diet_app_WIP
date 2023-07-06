@@ -21,7 +21,8 @@ import CuisinePreference from './components/CuisinePreference';
 import Loading from './components/Loading';
 import Chatbox from './components/Chatbox';
 import Recipe_test from './components/Recipe_test';
-
+import Recipes from './components/Display_recipes';
+import Sliding_box from './components/Sliding_box';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, light, thin, duotone, icon } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
 
@@ -165,6 +166,7 @@ function App(props: AppProps) {
               <Route path="/loading" element={<Loading destination="testing"/>} />
               <Route path="/chatbox" element={<Chatbox/>} />
               <Route path="/recipe_test" element={<Recipe_test/>} />
+              <Route path="/recipes" element={<Sliding_box/>} />
               <Route path="user" element={<UserPage userData={sendUserData}/>} />
             </Route>
           </Routes>
