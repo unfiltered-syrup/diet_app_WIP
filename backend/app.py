@@ -328,29 +328,29 @@ def change_password():
 # curretly not used
 # the image function can be done using get_images()
 # but if in the future we need to send the image along with other data, we can use this one
-@app.route("/api/get_recipe/<recipe_name>")
-def get_recipe(recipe_name):
+@app.route("/api/get_recipe/<recipe_id>")
+def get_recipe(recipe_id):
     # for now assume request return a recipe_name with GET
     #recipe_name = request.args.get('recipe_name')
     conn = get_db('recipe')
     cur = conn.cursor()
-    cur.execute("SELECT * FROM recipes WHERE name = ?", (recipe_name,))
+    cur.execute("SELECT * FROM recipes WHERE id = ?", (recipe_id,))
     result = cur.fetchone()
     if result:
         recipe_id, recipe_name, recipe_preference_vector = result
         response = make_response(jsonify({
             'success' : 'True',
-            'recipe_id' : recipe_id, 
             'recipe_name' : recipe_name, 
+            'recipe_url' : 'data/images/' + recipe_id + '.jpg'
         }))
         return response
     else:
         response = make_response(jsonify({"success" : 'False'}))
 
 # return the image of the recipe to front end
-@app.route('/api/get_image/<recipe_name>')
-def get_image(recipe_name):
-    return send_from_directory('data/images', recipe_name + 'jpg') # assuming all jpg for now
+@app.route('/api/get_image/<recipe_id>')
+def get_image(recipe_id):
+    return send_from_directory('data/images', recipe_id + 'jpg') # assuming all jpg for now
 
 
 
