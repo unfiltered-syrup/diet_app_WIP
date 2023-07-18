@@ -97,21 +97,6 @@ tree_test = {
                 "question": "What are your favorite food items on a Gluten-free diet?",
             },
         },
-        "OTHER": {
-            "question": "Please specify your diet.",
-            "YES": {
-                "question": "Do you have any allergies or intolerances that affect your diet?",
-                "YES": {
-                    "question": "Please specify your allergies or intolerances.",
-                    "FOLLOW_UP": {
-                        "question": "Despite these, what are your favorite food items within your diet?",
-                    },
-                },
-                "NO": {
-                    "question": "What are your favorite food items within your diet?",
-                },
-            },
-        },
     },
     "NO": {
         "question": "Do you have any food allergies or intolerances?",
@@ -147,5 +132,32 @@ def make_decision(answer, question_id):
         return node
     return node['question']
 
-def record_newuser_pref(pref_vec):
-    return
+def record_diet_plan_pref(pref_vec, question_type):
+    match question_type:
+        case "vegan":
+            pref_vec = vegan_config()
+        case "keto":
+            pref_vec = keto_config()
+        case "gluten-free":
+            pref_vec = gluten_free_config()
+        case "vegetarian":
+            pref_vec = vegetarian_config()
+        case "paleo":
+            pref_vec = paleo_config()
+
+    return pref_vec
+
+def vegan_config(pref_vec): #TODO after data pre-processing is done, set preference vec based on group label
+    return pref_vec
+
+def keto_config(pref_vec):
+    return pref_vec
+
+def gluten_free_config(pref_vec):
+    return pref_vec
+
+def vegetarian_config(pref_vec):
+    return pref_vec
+
+def paleo_config(pref_vec):
+    return pref_vec

@@ -199,6 +199,10 @@ def next_question():
         print("answer:", answer)
         #answer provided by the user
         user_response = request.json['answer'] 
+        #create a preference vector within session if it doesn't exist
+        if 'user_pref_vec' not in session:
+            session['user_pref_vec'] = []
+        #TODO: after completing conversation_flow.record_diet_plan_pref, pass user_pref_vec
         bot_response = conversation_flow.make_decision(answer, question_id)
         response = make_response(jsonify({"question": bot_response}))
         print('bot_response: ' + bot_response)
