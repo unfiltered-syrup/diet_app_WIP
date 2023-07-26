@@ -1,1 +1,154 @@
-hummus;milk;beef;tomatoes;salt;beans;broccoli;hot dogs;almonds;cheese;kale;egg;salsa;beef breakfast sausage;onion rings;pickles;peanut butter;parmesan cheese; american cheese ;grapefruit juice;peaches;sunflower seeds;italian pork sausage;white bread;turkey breakfast sausage;carrots;mustard;prepared yellow mustard;figs;kiwi;cantaloupe;nectarines;fresh nectarines;oranges;strawberries;fresh strawberries;lettuce;romaine lettuce;cheddar cheese;cottage cheese;mozzarella cheese;greek yogurt;yogurt;oil;ground turkey;chicken;sauce; ham;pears;olives;chorizo pork sausage;oatmeal cookies with raisins;haddock;pollock;tuna;sugar;sweet and sour pork;chinese restaurant;tamale;pupusas;whole wheat bread; sliced processed american cheese; processed american cheese;burger king;fil; ketchup ;canola oil;corn oil;vegetable oil ;olive oil;olive oil control composite;eggs; bacon;panera bacon turkey bravo;butter;flour;onions;bananas;garlic;apples;almond milk;soy milk;mushrooms;spinach;apple juice from concentrate with added vitamin c;grape juice;orange juice;cranberry juice;tomato juice;oat milk;peppers;buttermilk;almond butter;sesame seed butter ;ground flaxseed meal;raspberries;grapes;blueberries;applesauce;cream cheese;heavy cream;sour cream;nuts;oats;green beans;cherries;pineapple;potatoes;sweet potatoes;celery;cucumber;cabbage;amaranth;buckwheat;millet;quinoa;brown rice;white rice;sorghum;rye;barley;cassava flour;pork;turkey;brazil nuts;cashews;pumpkin seeds ;hazelnuts;macadamia nuts;pistachio nuts;sunflower seed kernels;coconut flour;peanuts;chestnut flour
+hummus:319874,319894,319958
+milk:320025,321901,322020,322229,322560
+beef:320353,320357,334721,334725,334850,334899,334964,334967,335062,2514749
+tomatoes:320413,333009,333133,1750648
+salt:321361,321373,321379,321406,321412,321429,321458,321464,321475
+beans:321506
+broccoli:321612,321618,321621,321628,321631,321638,321641,321648,321651,321674,321693,321718,321746,321763
+hot dogs:322893
+almonds:323122
+cheese:323295,325993,328208,329131,329717,2259846,2259862
+kale:323445,326136
+egg:323506,323605,323698,329371,329491,329597,747694
+salsa:323794,323841,323887,323963
+beef breakfast sausage:324053
+onion rings:324158
+pickles:324318,324502
+peanut butter:2262077
+parmesan cheese:324861
+american cheese:325037
+grapefruit juice:2003786
+peaches:325288,325360
+sunflower seeds:325431
+italian pork sausage:325598
+white bread:325856
+turkey breakfast sausage:325956
+carrots:326197,326314,2258593,2258609
+mustard:326459
+prepared yellow mustard:326667
+figs:326699,326749
+kiwi:326906,326918,326938,326978,326999
+cantaloupe:327047,327124
+nectarines:327199
+fresh nectarines:327336
+oranges:327358
+strawberries:327502,2263894
+fresh strawberries:327626
+lettuce:327700,2346484,2346500,2346516
+romaine lettuce:327899
+cheddar cheese:327924
+cottage cheese:2346416
+mozzarella cheese:328842
+greek yogurt:330108
+yogurt:330138,2259830
+oil:330416,1750552,1750568,1750584,1750600
+ground turkey:330459
+chicken:330870,330884,331898,2514795
+sauce:331961
+ham:332283
+pears:332398,332424,332430,332454
+olives:332598
+chorizo pork sausage:332846
+oatmeal cookies with raisins:332880
+haddock:333282,333288,333295,333302,333308,333316,333322,333329,333336,333348,333361
+pollock:333375,333381,333387,333393,333399,333406,333412,333418,333424,333436,333448,333463
+tuna:333477,333951,334054,334127
+sugar:334195
+sweet and sour pork:334452
+chinese restaurant:334531
+tamale:334537
+pupusas:334629
+whole wheat bread:335185
+burger king - ham:746786
+subway - ham:746822
+panera - ham:746830
+dunkin donuts - ham:746845
+ihop - sliced processed american cheese:746953
+mcdonalds - processed american cheese:746992
+burger king:749044
+chick-fil-a - american cheese:747055
+panera - american cheese:747096
+dennys - american cheese :747324
+applebees -  american cheese :747303
+mcdonalds - american cheese:747190
+chick fil a - american cheese:747196
+subway - american cheese:747268
+ihop - american cheese :747310
+mcdonalds - ketchup:747449
+ihop - ketchup :747621
+dennys - ketchup :747657
+burger king - ketchup:747561
+canola oil:748237
+corn oil:748279
+vegetable oil :748324
+olive oil:748367
+olive oil control composite:748588
+eggs:748916
+applebees - bacon :748974
+burger king - bacon:749075
+dennys - bacon  :749155
+ihop - bacon :749233
+panera - bacon:749275
+panera bacon turkey bravo:749294
+subway - bacon:749306
+mcdonalds - bacon:749351
+butter:789772
+flour:789829,789891,789952,789963,790019,790030,790086,790147,790215,1104648,1104706,1104868,2003834,2003850,2003866,2003882,2261424,2261440,2261456
+onions:790509,790578,1104914
+bananas:790647,790749,790755,790760
+garlic:1104593
+apples:1105315,1105431,1105548,1105665,1105782
+almond milk:2257076
+soy milk:2257048
+mushrooms:1750492,1750504,1750520,1750536,2003606,2003618,2003634,2003650,2003662,2003678,2003694
+spinach:1750616,1750632
+apple juice from concentrate with added vitamin c:2003706
+grape juice:2003738
+orange juice:2003754
+cranberry juice:2003802
+tomato juice:2003818
+oat milk:2257104
+peppers:2258625
+buttermilk:2259798
+almond butter:2262093
+sesame seed butter :2262109
+ground flaxseed meal:2262125
+raspberries:2263910
+grapes:2263926,2263942
+blueberries:2263958
+applesauce:2263974
+cream cheese:2346436
+heavy cream:2346452
+sour cream:2346468
+nuts:2346548,2346564,2346580,2346596
+oats:2346612
+green beans:2346644
+cherries:2346660
+pineapple:2346676
+potatoes:2346692,2346698,2346706
+sweet potatoes:2346712
+celery:2346756
+cucumber:2346772
+cabbage:2346788,2346804
+amaranth:2512383
+buckwheat:2512399,2512495
+millet:2512415
+quinoa:2512431
+brown rice:2512447
+white rice:2512463
+sorghum:2512479
+rye:2512511
+barley:2512527
+cassava flour:2512543
+pork:2514781
+turkey:2514811
+brazil nuts:2515384
+cashews:2515400
+pumpkin seeds :2515416
+hazelnuts:2515432
+macadamia nuts:2515448
+pistachio nuts:2515464
+sunflower seed kernels:2515480
+coconut flour:2515496
+peanuts:2515512
+chestnut flour:2515528
