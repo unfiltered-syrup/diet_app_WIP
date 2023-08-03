@@ -3,6 +3,7 @@ import sklearn
 import random
 from random import sample
 import os
+import sqlite3
 
 
 def initialize():
@@ -26,6 +27,9 @@ def initialize():
     series = foods['parent']
     series.index = foods['fdc_id']
 
+    group_id_series = foods['food_category_id']
+    group_id_series.index = foods['fdc_id']
+
     #series = pd.Series(foods['parent'], index = foods['fdc_id'])
     # this line will make the data all NaN, i dont know why......
 
@@ -42,9 +46,41 @@ def initialize():
 
     for index, ingredient in series.items():
         if ingredient.replace(" ", "") in result_dict:
+            #result_dict[helper[ingredient.replace(" ", "")]] = index
             result_dict[helper[ingredient.replace(" ", "")]].append(index)
         else:
             result_dict[helper[ingredient.replace(" ", "")]] = [index]
+
+    # connect to the database
+    conn = sqlite3.connect('recipe.db')
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+    # clear the table first
+    cur.execute("DELETE FROM features")
+    try:
+        print(len(result_dict))
+        for key, value in result_dict.items():
+            # print(key)
+            # print(value[0])
+            # print(int(group_id_series[value[0]]))
+            name = key
+            fdc_id = value[0]
+            group_id = group_id_series[value[0]]
+            # check NaN
+            if pd.isna(group_id):
+                group_id = -1
+            else:
+                group_id = int(group_id)
+            cur.execute("INSERT INTO features (name, fdc_id, group_id) VALUES (?, ?, ?)", (name, fdc_id, group_id))
+
+        print("db writing done")
+    except sqlite3.Error as e:
+        conn.rollback()
+        print("SQLite error:", e)
+    # test
+    conn.commit()
+    conn.close()
+
     
     directory = os.getcwd()
     path = os.path.join(directory,'features_list.txt')

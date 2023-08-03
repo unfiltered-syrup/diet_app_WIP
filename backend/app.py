@@ -238,7 +238,7 @@ def update_user_preference():
 
         try:
             cur.execute("UPDATE user_preference SET diet_preference = ? WHERE user_name = ?", (diet_preference, name))
-            cur.commit()
+            conn.commit()
             conn.close()
             response = make_response(jsonify({"success": 'True'}))
             return response
@@ -319,7 +319,7 @@ def change_password():
         cur = conn.cursor()
         try:
             cur.execute("UPDATE users SET password = ? WHERE username = ?", (password, name))
-            cur.commit()
+            conn.commit()
             conn.close()
             response = make_response(jsonify({"success": 'True'}))
             return response
