@@ -18,13 +18,13 @@ def empty_image_folder(folder_path):
             if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
                 os.remove(file_path)
 
-def get_recipe(url, name, site, original_name):
+def get_recipe(url, name, site): #get html of recipe page
     ua_str = UserAgent().chrome
     resp = requests.get(url,allow_redirects=True,headers={"User-Agent": ua_str} )
     soup = BeautifulSoup(resp.text, 'html.parser')
-    get_img(soup, name, site, original_name)
+    get_img(soup, name, site) #get image of recipe page
 
-def get_img(soup, name, site, original_name):
+def get_img(soup, name, site): #get image and save in folder
     ua_str = UserAgent().chrome
     try:
         img_div = soup.find_all('div', class_="hero-wrapper")[0]
@@ -48,9 +48,9 @@ def get_img(soup, name, site, original_name):
         with open('test_images/'+name+'.jpg', 'wb') as f:
             f.write(r.content)
             print('fetched')
-    get_recipe_data(soup, name, original_name, download_url)
+    get_recipe_data(soup, name, download_url)
 
-def get_recipe_data(soup, name, original_name, img_url):
+def get_recipe_data(soup, name, img_url): #get recipe data and save in db
     saved_image_name = name + '.jpg'
     recipe_div = soup.find_all('ul', class_="ingred-list")[0]
     ingreds = recipe_div.findChildren("li", recursive=False)
@@ -65,7 +65,7 @@ def get_recipe_data(soup, name, original_name, img_url):
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
     try:
-        cur.execute("INSERT INTO recipes (name, image_name, url, ingredients) VALUES (?, ?, ?, ?)", (original_name, saved_image_name, img_url, recipe_str))
+        cur.execute("INSERT INTO recipes (name, image_name, url, ingredients) VALUES (?, ?, ?, ?)", (name, saved_image_name, img_url, recipe_str))
         print("db writing done")
     except sqlite3.Error as e:
         conn.rollback()
@@ -77,12 +77,6 @@ def get_recipe_data(soup, name, original_name, img_url):
 
 
 def get_jaimie_oliver(recipe_type):
-    site = 'https://www.jamieoliver.com/recipes/' + recipe_type
-    ua_str = UserAgent().chrome
-    req = requests.get(site,allow_redirects=True,headers={"User-Agent": ua_str} )
-    main_soup = BeautifulSoup(req.text, 'html.parser')
-    recipe_names = main_soup.find_all('div', class_="recipe-title")
-
     # for test use
     counter = 0 # counter for testing use only
     empty_image_folder('test_images')
@@ -93,30 +87,29 @@ def get_jaimie_oliver(recipe_type):
     # clear the table first
     cur.execute("DELETE FROM recipes")
     #end for test use
-
-    for recipe_name in recipe_names:
-        # just scrap ten for testing
-        # if counter < 3:
-        #     counter += 1
-        # else:
-        #     break
-        counter += 1
-
-        # print("before:" + recipe_name.text)
-        result = re.sub(' +', ' ', recipe_name.text)
-        result = result.replace("’", '')
-        result = result.replace("‘", '')
-        result = result.replace("'", '-')
-        result = re.sub("[(,)]", '', result)
-        result = re.sub("[,.;@#?!&$]", '-', result)
-        result = re.sub(" ", '-', result)
-        result = re.sub('-+', '-', result)
+    site = 'https://www.jamieoliver.com/recipes/' + recipe_type
+    ua_str = UserAgent().chrome
+    req = requests.get(site,allow_redirects=True,headers={"User-Agent": ua_str} )
+    main_soup = BeautifulSoup(req.text, 'html.parser')
+    recipe_block = main_soup.find_all('div', class_="recipe-block") #find all recipe block
+    for recipe in recipe_block: #iterate through all recipes
         wait_time = random.randint(2, 6)
         # print('after:' + result)
         print('recipe No. ', counter)
-        print(f"waiting for {wait_time} seconds before requesting for {result}")
-        get_recipe(site+result, result, site, recipe_name.text)
+        counter += 1
+        for child in recipe.findChildren("a", recursive=False):
+            print(child['href'])
+            child_url = child['href'] #get anchor tag
+            name = child_url.split('/')[-2] #get last portion of the url
+            print(name)
+            get_recipe(site+'/' + name, name, site)
+        print(f"waiting for {wait_time} seconds before requesting again") #sleep
         time.sleep(wait_time)
+
+
+
+
+
 
 
 
