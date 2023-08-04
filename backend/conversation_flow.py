@@ -40,80 +40,99 @@ tree_test = {
         "KETO": {
             "question": "Do you have any allergies or intolerances that affect your Keto diet?",
             "YES": {
-                "question": "(follow_up) Please specify your allergies or intolerances.",
+                "question": "Please specify your allergies or intolerances.",
                 "FOLLOW_UP": {
-                    "question": "(follow_up) Despite these, what are your favorite food items on a Keto diet?",
+                    "question": "Despite these, what are your favorite food items on a Keto diet?",
                 },
             },
             "NO": {
-                "question": "(follow_up) What are your favorite food items on a Keto diet?",
+                "question": "What are your favorite food items on a Keto diet?",
             },
         },
         "PALEO": {
             "question": "Do you have any allergies or intolerances that affect your Paleo diet?",
             "YES": {
-                "question": "(follow_up) Please specify your allergies or intolerances.",
+                "question": "Please specify your allergies or intolerances.",
                 "FOLLOW_UP": {
-                    "question": "(follow_up) Despite these, what are your favorite food items on a Paleo diet?",
+                    "question": "Despite these, what are your favorite food items on a Paleo diet?",
                 },
             },
             "NO": {
-                "question": "(follow_up) What are your favorite food items on a Paleo diet?",
+                "question": "What are your favorite food items on a Paleo diet?",
             },
         },
         "VEGAN": {
             "question": "Do you have any allergies or intolerances that affect your Vegan diet?",
             "YES": {
-                "question": "(follow_up) Please specify your allergies or intolerances.",
+                "question": "Please specify your allergies or intolerances.",
                 "FOLLOW_UP": {
-                    "question": "(follow_up) Despite these, what are your favorite food items on a Vegan diet?",
+                    "question": "Despite these, what are your favorite food items on a Vegan diet?",
                 },
             },
             "NO": {
-                "question": "(follow_up) What are your favorite food items on a Vegan diet?",
+                "question": "What are your favorite food items on a Vegan diet?",
             },
         },
         "VEGETARIAN": {
             "question": "Do you have any allergies or intolerances that affect your Vegetarian diet?",
             "YES": {
-                "question": "(follow_up) Please specify your allergies or intolerances.",
+                "question": "Please specify your allergies or intolerances.",
                 "FOLLOW_UP": {
-                    "question": "(follow_up) Despite these, what are your favorite food items on a Vegetarian diet?",
+                    "question": "Despite these, what are your favorite food items on a Vegetarian diet?",
                 },
             },
             "NO": {
-                "question": "(follow_up) What are your favorite food items on a Vegetarian diet?",
+                "question": "What are your favorite food items on a Vegetarian diet?",
             },
         },
         "GLUTEN-FREE": {
             "question": "Do you have any allergies or intolerances that affect your Gluten-free diet?",
             "YES": {
-                "question": "(follow_up) Please specify your allergies or intolerances.",
+                "question": "Please specify your allergies or intolerances.",
                 "FOLLOW_UP": {
-                    "question": "(follow_up) Despite these, what are your favorite food items on a Gluten-free diet?",
+                    "question": "Despite these, what are your favorite food items on a Gluten-free diet?",
                 },
             },
             "NO": {
-                "question": "(follow_up) What are your favorite food items on a Gluten-free diet?",
+                "question": "What are your favorite food items on a Gluten-free diet?",
             },
+        },
+        "OTHER": {
+            "question": "Can you specify the specific diet plan you're following?",
         },
     },
     "NO": {
         "question": "Do you have any food allergies or intolerances?",
         "YES": {
-            "question": "(follow_up) Please specify your allergies or intolerances.",
+            "question": "Please specify your allergies or intolerances.",
             "FOLLOW_UP": {
-                "question": "(follow_up) Despite these, what are your favorite foods or food groups to include in your meals?",
+                "question": "Despite these, what are your favorite foods or food groups to include in your meals?",
             },
         },
         "NO": {
-            "question": "(follow_up) What are your favorite foods or food groups to include in your meals?",
+            "question": "What are your favorite foods or food groups to include in your meals?",
         },
     },
 }
 
 # make decisions based on user_input
 
+
+def get_possible_answers(question):
+    # add another function to make the recursion searching of tree work
+    def search_for_question(tree):
+        if "question" in tree and tree["question"] == question:
+            return [option.upper() for option in tree.keys() if option != "question"]
+
+        for subtree in tree.values():
+            if isinstance(subtree, dict):
+                result = search_for_question(subtree)
+                if result:
+                    return result
+        return None
+
+    global tree_test
+    return search_for_question(tree_test)
 
 def make_decision(answer, question_id):
     node = tree_test  # Set node to the whole tree
@@ -123,7 +142,7 @@ def make_decision(answer, question_id):
         else:
             return node[answer]['question']
     for a in question_id.split(":"):
-        print('value of a:'+ a)
+        print('value of a:' + a)
         node = node[a]
     if isinstance(node, str):
         print("node" + node)
@@ -132,6 +151,8 @@ def make_decision(answer, question_id):
         node = node[answer]
     if isinstance(node, str):
         return node
+    
+    get_possible_answers(node['question'])
     return node['question']
 
 

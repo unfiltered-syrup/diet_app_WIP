@@ -205,8 +205,11 @@ def next_question():
             session['user_pref_vec'] = []
         #TODO: after completing conversation_flow.record_diet_plan_pref, pass user_pref_vec
         bot_response = conversation_flow.make_decision(answer, question_id)
-        response = make_response(jsonify({"question": bot_response}))
-        print('bot_response: ' + bot_response)
+        bot_options = conversation_flow.get_possible_answers(bot_response)
+        response_data = { "question": bot_response, "answer_options": bot_options }
+        response = make_response(jsonify(response_data))
+        print('bot_response: ' + bot_response) 
+        print('bot_options: ' + str(bot_options))
         return response
     
 @app.route("/api/fetch_user_preference", methods = ['POST'])

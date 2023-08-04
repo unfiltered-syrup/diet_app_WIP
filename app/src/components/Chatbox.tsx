@@ -1,7 +1,8 @@
 import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useLayoutEffect} from "react";
 import ReactDOM from "react-dom/client";
 import { useEffect, useRef } from "react";
+import ChatBoxOptions from "./ChatOptions";
 
 //holds message data
 function Chatbox() {
@@ -11,11 +12,14 @@ function Chatbox() {
     const [clickCount, setClickCount] = useState<number>(0);
     const [clicked, setClicked] = useState<boolean>(false);
     const initialRender = useRef(true);
-    const [chatHistory, setChatHistory] = useState<string[]>(['Hello there!', 'Hello Gorden!', '']);
+    const [chatHistory, setChatHistory] = useState<string[]>(['Hello there!']);
+    const [options, setOptions] = useState<string[]>([]);
+    const [isOption, setisOption] = useState<boolean>(true);
+    const chatHistoryRef = useRef<HTMLDivElement>(null);
 
     // set up a variable to decide what kind of question is
-    const isOption = question && question.includes('option');
-    const isTextbox = question && question.includes('follow_up');
+    // const isOption = question && question.includes('option');
+    // const isTextbox = question && question.includes('follow_up');
 
     useEffect(() => {
         if (initialRender.current) {
@@ -32,6 +36,9 @@ function Chatbox() {
 
     useEffect(() => {
         console.log('question is : ' + question);
+        if (chatHistoryRef.current) {
+            chatHistoryRef.current.scrollTop = chatHistoryRef.current.scrollHeight;
+        }
     }, [question]);
 
     useEffect(() => {
@@ -87,10 +94,13 @@ function Chatbox() {
             .then(data => {
                 // Set the question first
                 setQuestion(data.question);
+                setOptions(data.answer_options);
                 if (data.question.includes('follow_up'))
                     data.question = data.question.substring(12);
                 // Update the chat history
                 // Update the questionId
+                if (!data.answer_options || data.answer_options[0] === "FOLLOW_UP")
+                    setisOption(false);
                 if (questionId === "") {
                     setQuestionId(answer);
                     //setChatHistory(prevHistory => [...prevHistory, answer]);
@@ -108,7 +118,7 @@ function Chatbox() {
 
     return (
         <div className="flex flex-col h-screen p-6 bg-beige">
-            <div className="flex flex-col mx-10 h-2/3 mb-4 p-3 bg-cornsilk bg-opacity-50 rounded-lg overflow-auto">
+            <div ref={chatHistoryRef} className="flex flex-col mx-10 h-2/3 mb-4 p-3 bg-cornsilk bg-opacity-50 rounded-lg overflow-auto">
                 {chatHistory.map((entry, index) => {
                     if (entry.trim() === "") return null;
                     const isSenderGR = index % 2 === 0;
@@ -140,81 +150,22 @@ function Chatbox() {
             </div>
 
             <div className="flex flex-col gap-2 items-center justify-center mx-10 h-1/3 p-3 bg-cornsilk bg-opacity-50 rounded-lg">
-                {!isOption && !isTextbox ? (
-                    <>
-                        {/* For questions with "YES" and "NO" options, render buttons */}
-                        <button
-                            onClick={buttonPressed}
-                            className="w-full h-1/2 rounded-md bg-olivine text-cornsilk hover:bg-moss-green font-mono"
-                        >
-                            YES
-                        </button>
-                        <button
-                            onClick={buttonPressed}
-                            className="w-full h-1/2 rounded-md bg-olivine text-cornsilk hover:bg-moss-green font-mono"
-                        >
-                            NO
-                        </button>
-                    </>
+                {isOption ? (
+                    <ChatBoxOptions options={options} NumofOptions={options.length} pressed={buttonPressed}></ChatBoxOptions>
                 ) : (
                     <>
-                        {isOption ? ( // option
-                            <>
-                                <div className="grid grid-cols-2 gap-2 w-full h-full">
-                                    <button
-                                        onClick={buttonPressed}
-                                        className="rounded-md bg-olivine text-cornsilk hover:bg-moss-green font-mono"
-                                    >
-                                        KETO
-                                    </button>
-                                    <button
-                                        onClick={buttonPressed}
-                                        className="rounded-md bg-olivine text-cornsilk hover:bg-moss-green font-mono"
-                                    >
-                                        PALEO
-                                    </button>
-                                    <button
-                                        onClick={buttonPressed}
-                                        className="rounded-md bg-olivine text-cornsilk hover:bg-moss-green font-mono"
-                                    >
-                                        VEGAN
-                                    </button>
-                                    <button
-                                        onClick={buttonPressed}
-                                        className="rounded-md bg-olivine text-cornsilk hover:bg-moss-green font-mono"
-                                    >
-                                        VEGETARIAN
-                                    </button>
-                                    <button
-                                        onClick={buttonPressed}
-                                        className="rounded-md bg-olivine text-cornsilk hover:bg-moss-green font-mono"
-                                    >
-                                        GLUTEN-FREE
-                                    </button>
-                                    <button
-                                        onClick={buttonPressed}
-                                        className="rounded-md bg-olivine text-cornsilk hover:bg-moss-green font-mono"
-                                    >
-                                        OTHER
-                                    </button>
-                                </div>
-                            </>
-                        ) : ( // textbox
-                            <>
-                                <input
-                                    type="text"
-                                    placeholder="Type your answer here"
-                                    onChange={(e) => setAnswer(e.target.value)}
-                                    className="w-full h-1/2 rounded-md bg-white text-olivine font-mono"
-                                />
-                                <button
-                                    onClick={buttonPressed}
-                                    className="w-full h-1/2 rounded-md bg-olivine text-cornsilk hover:bg-moss-green font-mono"
-                                >
-                                    Submit
-                                </button>
-                            </>
-                        )}
+                        <input
+                            type="text"
+                            placeholder=" Type your answer here"
+                            onChange={(e) => setAnswer(e.target.value)}
+                            className="w-full h-1/2 rounded-md bg-white text-olivine font-mono"
+                        />
+                        <button
+                            onClick={buttonPressed}
+                            className="w-full h-1/2 rounded-md bg-olivine text-cornsilk hover:bg-moss-green font-mono"
+                        >
+                            Submit
+                        </button>
                     </>
                 )}
             </div>
