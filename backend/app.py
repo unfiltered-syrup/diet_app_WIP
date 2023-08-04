@@ -12,6 +12,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from . import conversation_flow
 from backend.data import user_to_user, user_product# for register
 import re
+import io
 
 load_dotenv(".flaskenv")
 app = Flask(__name__)
@@ -354,9 +355,30 @@ def get_recipe(recipe_id):
 # return the image of the recipe to front end
 @app.route('/api/get_image/<recipe_id>')
 def get_image(recipe_id):
-    return send_from_directory('data/images', recipe_id + 'jpg') # assuming all jpg for now
+    conn = get_db('recipe')
+    cur = conn.cursor()
+    cur.execute("SELECT image_name FROM recipes WHERE id = ?", (recipe_id,))
+    result = cur.fetchone()
+    print('data/test_images/'+result['image_name'].lower())
+    response = make_response(send_from_directory('data/test_images',result['image_name'].lower()))
+    return response
 
-
+@app.route('/api/get_recipe_id')
+def get_recipe_id():
+    #for testing purposes, generate 50 random recipe ids
+    conn = get_db('recipe')
+    cur = conn.cursor()
+    cur.execute("SELECT id, name FROM recipes ORDER BY RANDOM() LIMIT 50")
+    rows = cur.fetchall()
+    if not rows:
+        response = make_response(jsonify({"success": 'False'}))
+        return response
+    recipes = [{"id": row[0], "name": row[1]} for row in rows]
+    response = make_response(jsonify({
+        'success' : 'True',
+        'recipes' : recipes
+    }))
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
