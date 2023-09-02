@@ -1,6 +1,9 @@
 import pandas as pd 
 import sqlite3
 import numpy as np
+from fuzzywuzzy import process
+
+
 
 def get_db(dbname):
     conn = sqlite3.connect('data/'+ dbname +'.db')
@@ -30,7 +33,7 @@ def get_ingredients():
     return df
 
 
-def get_measurement_unit(ingredients):
+def get_unit_quantities(ingredients):
     #create a list of all measurement units
     measurement_units = [
         'Gram', 'Kilogram', 'Milliliter', 'Liter', 'Centiliter', 'Deciliter',
@@ -56,10 +59,11 @@ def get_measurement_unit(ingredients):
         num = False
         unit = False
         for word in ingred.split(' '): #parse each word in the ingredient
+            print(word)
             if word.isnumeric(): #identify if the word is a number
                 print('found number: ', word)
                 num = word
-            elif word in abbreviations or word in measurement_units: #identify if word is a unit
+            elif word in abbreviations or word in measurement_units or word.capitalize() in measurement_units or word[:-1] in measurement_units or word[:-1].capitalize() in measurement_units: #identify if word is a unit
                 print('found unit: ', word)
                 unit = word
             elif num and unit: #if the unit and number have been identified, the rest of the word is treated as ingredient
@@ -87,5 +91,17 @@ def get_measurement_unit(ingredients):
     
     result = pd.DataFrame(result)
     print(result)
+    return result
 
-get_measurement_unit(get_ingredients().iloc[0]['ingredients'])
+
+def match_to_features(unit_quantities_df):
+    features = get_features()
+    for index, row in unit_quantities_df.iterrows():
+        print(row['ingredient'])
+        #fuzzy string matching
+        best_match, score, score2 = process.extractOne(row['ingredient'], features['name'])
+        print("closest match:", best_match)
+        print("confidence score: ",score, score2)
+        print('---------------------')
+
+match_to_features(get_unit_quantities(get_ingredients().iloc[1]['ingredients']))
