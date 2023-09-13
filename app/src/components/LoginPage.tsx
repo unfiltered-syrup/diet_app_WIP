@@ -26,7 +26,7 @@ function LoginPage({onLogin}: LoginPageProps){
           if(data.success == 'True'){
             console.log('navigating...');
             onLogin('true');
-            navigate("/", {state: {isLoggedIn: 'true'}});
+            navigate("/recipes", {state: {isLoggedIn: 'true'}});
           }
           else{
             alert('Incorrect username or password')

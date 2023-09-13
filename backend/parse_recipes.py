@@ -80,14 +80,14 @@ def get_unit_quantities(ingredients):
         if item == '': #if the ingredient is empty, manually input the data
             if ingred != '' or ingred != ' ':
                 print('item is empty: ', ingred)
-                num = input("Enter number(type 's' to skip, type 'd' to default): ")
-                if num == 's':
-                    continue
-                unit = input("Enter unit(type 's' to skip, type 'd' to default): ")
+                #num = input("Enter number(type 's' to skip, type 'd' to default): ")
+                #if num == 's':
+                    #continue
+                #unit = input("Enter unit(type 's' to skip, type 'd' to default): ")
                 item = input("Enter ingredient(type 's' to skip): ")
-                if item != 's':
-                    all_ingreds.append({'ingredient': item, 'unit':unit, 'num':num})
-        print('---------------------8')
+                if item != 's': #don't need unit and number at the moment, d as placeholder
+                    all_ingreds.append({'ingredient': item, 'unit':'d', 'num':'d'})
+        print('---------------------')
 
     result = []
     for i in range(len(all_ingreds)):
@@ -137,7 +137,7 @@ def generate_binary_array(features, top_matches, best_match, score, index, row, 
                 print(top_matches[iter])
                 decision = input("Is this a match? (y/n): ")
                 if decision == 'y':
-                    best_match = top_matches[iter]
+                    best_match = top_matches[iter][0]
                     best_match_index = features[features['name']==best_match].index[0]
                     feature_arr[best_match_index] = 1
         except IndexError:
@@ -193,4 +193,4 @@ def parse_all_recipes(starting_position): #parse recipes from database
             feature_encoding = ''.join(str(feature_arr)) #convert array to string
             save_recipe_binary(index, feature_encoding) #save to database
 
-parse_all_recipes(10)
+parse_all_recipes(14)

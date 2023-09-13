@@ -27,7 +27,7 @@ function Register({ onReg }: RegisterPageProps) {
         if (data.success === "True") {
           console.log("navigating...");
           onReg("true");
-          navigate("/", { state: { isLoggedIn: "true" } });
+          navigate("/chatbox", { state: { isLoggedIn: "true" } });
         } else {
           alert(data.message);
           navigate("/register", { state: { isLoggedIn: "false" } });
