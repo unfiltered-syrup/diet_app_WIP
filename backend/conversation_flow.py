@@ -43,10 +43,16 @@ tree_test = {
                 "question": "Please specify your allergies or intolerances.",
                 "FOLLOW_UP": {
                     "question": "Despite these, what are your favorite food items on a Keto diet?",
+                    "FOLLOW_UP":{
+                    "question": "Thank you for your response",
+                }
                 },
             },
             "NO": {
                 "question": "What are your favorite food items on a Keto diet?",
+                "FOLLOW_UP":{
+                    "question": "Thank you for your response",
+                }
             },
         },
         "PALEO": {
@@ -55,10 +61,16 @@ tree_test = {
                 "question": "Please specify your allergies or intolerances.",
                 "FOLLOW_UP": {
                     "question": "Despite these, what are your favorite food items on a Paleo diet?",
+                    "FOLLOW_UP":{
+                    "question": "Thank you for your response",
+                }
                 },
             },
             "NO": {
                 "question": "What are your favorite food items on a Paleo diet?",
+                "FOLLOW_UP":{
+                    "question": "Thank you for your response",
+                }
             },
         },
         "VEGAN": {
@@ -67,10 +79,16 @@ tree_test = {
                 "question": "Please specify your allergies or intolerances.",
                 "FOLLOW_UP": {
                     "question": "Despite these, what are your favorite food items on a Vegan diet?",
+                    "FOLLOW_UP":{
+                    "question": "Thank you for your response",
+                }
                 },
             },
             "NO": {
                 "question": "What are your favorite food items on a Vegan diet?",
+                "FOLLOW_UP":{
+                    "question": "Thank you for your response",
+                }
             },
         },
         "VEGETARIAN": {
@@ -79,10 +97,16 @@ tree_test = {
                 "question": "Please specify your allergies or intolerances.",
                 "FOLLOW_UP": {
                     "question": "Despite these, what are your favorite food items on a Vegetarian diet?",
+                    "FOLLOW_UP":{
+                    "question": "Thank you for your response",
+                }
                 },
             },
             "NO": {
                 "question": "What are your favorite food items on a Vegetarian diet?",
+                "FOLLOW_UP":{
+                    "question": "Thank you for your response",
+                }
             },
         },
         "GLUTEN-FREE": {
@@ -91,14 +115,23 @@ tree_test = {
                 "question": "Please specify your allergies or intolerances.",
                 "FOLLOW_UP": {
                     "question": "Despite these, what are your favorite food items on a Gluten-free diet?",
+                    "FOLLOW_UP":{
+                    "question": "Thank you for your response",
+                }
                 },
             },
             "NO": {
                 "question": "What are your favorite food items on a Gluten-free diet?",
+                "FOLLOW_UP":{
+                    "question": "Thank you for your response",
+                }
             },
         },
         "OTHER": {
             "question": "Can you specify the specific diet plan you're following?",
+            "FOLLOW_UP":{
+                    "question": "Thank you for your response",
+                }
         },
     },
     "NO": {
@@ -107,10 +140,16 @@ tree_test = {
             "question": "Please specify your allergies or intolerances.",
             "FOLLOW_UP": {
                 "question": "Despite these, what are your favorite foods or food groups to include in your meals?",
+                "FOLLOW_UP":{
+                    "question": "Thank you for your response",
+                }
             },
         },
         "NO": {
             "question": "What are your favorite foods or food groups to include in your meals?",
+            "FOLLOW_UP":{
+                    "question": "Thank you for your response",
+                }
         },
     },
 }
@@ -138,22 +177,27 @@ def make_decision(answer, question_id):
     node = tree_test  # Set node to the whole tree
     if not question_id or question_id == ":":
         if not answer:
-            return node["question"]
+            return [node["question"], False]
         else:
-            return node[answer]['question']
+            return [node[answer]['question'], False]
     for a in question_id.split(":"):
-        print('value of a:' + a)
-        node = node[a]
+        try:
+            print('value of a:' + a)
+            node = node[a]
+        except KeyError:
+            print("KeyError")
+            return [node['question'], True]
     if isinstance(node, str):
         print("node" + node)
-        return node
+        return [node, False]
     if answer in node:
         node = node[answer]
     if isinstance(node, str):
-        return node
+        return [node, False]
     
-    get_possible_answers(node['question'])
-    return node['question']
+    #get_possible_answers(node['question'])
+    print(node)
+    return [node['question'], False]
 
 
 def record_diet_plan_pref(pref_vec, question_type):

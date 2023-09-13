@@ -1,0 +1,12 @@
+@keyframes appear{
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
+    }
+}
+
+.chatbubble{
+    animation: appear 1000ms;
+}

@@ -205,10 +205,17 @@ def next_question():
             session['user_pref_vec'] = []
         #TODO: after completing conversation_flow.record_diet_plan_pref, pass user_pref_vec
         bot_response = conversation_flow.make_decision(answer, question_id)
-        bot_options = conversation_flow.get_possible_answers(bot_response)
-        response_data = { "question": bot_response, "answer_options": bot_options }
+        bot_options = conversation_flow.get_possible_answers(bot_response[0])
+        if bot_options == ['FOLLOW_UP']:
+            print('this is a follow up question')
+            response_data = { "question": bot_response[0], "answer_options": bot_options, "user_input": answer}
+        elif bot_options == None:
+            print('this is the end of the conversation')
+            response_data = { "question": bot_response[0], "answer_options": bot_options, "user_input": 'END'}
+        else:
+            response_data = { "question": bot_response[0], "answer_options": bot_options}
         response = make_response(jsonify(response_data))
-        print('bot_response: ' + bot_response) 
+        print('bot_response: ' + bot_response[0]) 
         print('bot_options: ' + str(bot_options))
         return response
     
